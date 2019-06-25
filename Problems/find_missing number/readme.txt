@@ -1,0 +1,1 @@
+Find a missed number (o missing numbers ) in a range from 0 or 1 to n

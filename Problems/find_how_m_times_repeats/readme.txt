@@ -1,0 +1,1 @@
+Find how many time s a number repeats in a list of numbers

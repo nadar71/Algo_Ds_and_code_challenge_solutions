@@ -1,0 +1,1 @@
+Find smallest and greatest number in an array

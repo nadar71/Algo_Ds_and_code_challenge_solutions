@@ -6,8 +6,7 @@ Single Linked List with only head pointer (not tail pointer)
 class Node {
 	int data;
 	Node next;
-	int length;
-
+	
 	public Node() {
 		data = -1;
 		next = null;
@@ -19,6 +18,8 @@ class Node {
 	}
 
 }
+
+
 
 class LinkedList {
 	Node head;
@@ -68,42 +69,46 @@ class LinkedList {
 
 	// time complexity O(n)
 	public void append(int d) {
-		Node end = new Node(d);
-		Node ptr = head;
+		Node node = new Node(d);
+		Node ptr = head; // cursor pointer
+
 		// empty list, first node
-		if (head == null) {
-			ptr = end;
+		if (head.next == null) {
+			head.next = node;
 			length++;
 			return;
 		}
 
 		while (ptr.next != null)
 			ptr = ptr.next;
-
-		ptr.next = end;
+		ptr.next = node;
 		length++;
 	}
 
 	// delete list
 	public void deleteNode(int d) {
 		Node ptr = head;
-		if (ptr == null) {
+		if (head.next == null) {
 			System.out.println("The list is empty");
 			return;
 		}
 		
+
 		while (ptr.next != null) {
 			if (ptr.next.data == d) {				
 				ptr.next = ptr.next.next;
 				length--;
+				return;
 			}else ptr = ptr.next;			
 		}
+
+		System.out.println("Element not present in list.");
 	}
 		
 	// delete list
 	public void deleteList() {
 		Node ptr = head;
-		if (ptr == null) {
+		if (head.next == null) {
 			System.out.println("The list is empty");
 			return;
 		}
@@ -118,28 +123,28 @@ class LinkedList {
 	
 
 	// time complexity worst case O(N)
-	public void insertSortedNode(int d) {
-		Node n = new Node(d);
-		Node ptr = head;
-
-		// ptr.next != null means : last node
-		while (ptr.next != null && greater(n.data, ptr.next.data))
-			ptr = ptr.next;
+	public void insertSortedNode(int d) { // ascending order
+		Node node = new Node(d);
+		Node ptr  = head; // cursor pointer
 
 		// no elements in list
-		if (ptr.next == null) { // first node
-			n.next = null;      // unnecessary, all node are init with next = null,put for clarity						
-			ptr.next = n;
+		if (head.next == null) { // first node
+			head.next = node;			       
 			length++;
-		} else {
-			n.next = ptr.next;
-			ptr.next = n;
-			length++;
+			return;
 		}
 
-	}
+		// ptr.next != null means : last node
+		while (ptr.next != null && greater(node.data, ptr.next.data))
+			ptr = ptr.next;
 
+		node.next = ptr.next;
+		ptr.next = node;
+		length++;
+
+	}
 }
+
 
 public class Main {
 
@@ -177,6 +182,7 @@ public class Main {
 		list.insertSortedNode(5);
 		list.insertSortedNode(23);
 		list.insertSortedNode(9);
+		list.append(27);
 
 		list.printList();
 		

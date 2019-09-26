@@ -119,7 +119,7 @@ class LinkedList {
 
 	// delete list quick
 	public void deleteListQuick() {
-		head.next = null;
+		head = null;
 		length = 0;		
 	}
 	

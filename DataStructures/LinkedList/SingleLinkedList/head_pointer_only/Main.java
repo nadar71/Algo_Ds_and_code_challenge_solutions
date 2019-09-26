@@ -26,7 +26,7 @@ class LinkedList {
 	int length;
 
 	public LinkedList() {
-		head = new Node();
+		head   = new Node();
 		length = 0;
 	}
 
@@ -47,14 +47,12 @@ class LinkedList {
 	}
 
 	public void printList() {
-		Node link = head.next;
-		if (link == null) {
-			System.out.println("The list is empty");
-			return;
-		}
-		while (link != null) {
-			System.out.println(link.data);
-			link = link.next;
+		Node ptr = head;
+		if (isEmpty()) return;
+
+		while (ptr != null) {
+			System.out.println(ptr.data);
+			ptr = ptr.next;
 		}
 		System.out.println();
 	}
@@ -64,7 +62,11 @@ class LinkedList {
 	}
 
 	public boolean isEmpty() {
-		return length <= 0;
+		if (head.next == null || length <=0) {
+			System.out.println("The list is empty");
+			return true;
+		}
+		else return false;
 	}
 
 	// time complexity O(n)
@@ -85,15 +87,11 @@ class LinkedList {
 		length++;
 	}
 
-	// delete list
+	// delete node
 	public void deleteNode(int d) {
 		Node ptr = head;
-		if (head.next == null) {
-			System.out.println("The list is empty");
-			return;
-		}
+		if (isEmpty()) return;
 		
-
 		while (ptr.next != null) {
 			if (ptr.next.data == d) {				
 				ptr.next = ptr.next.next;
@@ -105,13 +103,11 @@ class LinkedList {
 		System.out.println("Element not present in list.");
 	}
 		
-	// delete list
-	public void deleteList() {
+	// delete list deeply
+	public void deleteListDeep() {
 		Node ptr = head;
-		if (head.next == null) {
-			System.out.println("The list is empty");
-			return;
-		}
+		if (isEmpty()) return;
+
 		while (ptr.next != null) {
 			Node tmp = ptr.next;
 			ptr.next = null;
@@ -119,7 +115,13 @@ class LinkedList {
 			length--;
 		}
 	}
-	
+
+
+	// delete list quick
+	public void deleteListQuick() {
+		head.next = null;
+		length = 0;		
+	}
 	
 
 	// time complexity worst case O(N)
@@ -170,7 +172,7 @@ public class Main {
 		list.printList();
 		
 		System.out.println("Clear list.");
-		list.deleteList();
+		list.deleteListDeep();
 		list.printList();
         
 		System.out.println("Insert node in sorted List");

@@ -1,7 +1,7 @@
 /*
-Copy List in reverted order in another list
+Remove duplicates from sorted LinkedList
 
-DOESN'T WRONG, ERROR AHED
+DOESN'T WRONG, ERROR AHEAD
 */
 
 class Node {
@@ -76,7 +76,8 @@ class LinkedList {
   
   
   // time complexity O(1)
-  public void insertHead(Node node){
+  public void insertHead(int data){
+      Node node = new Node(data);
       node.next = head.next;
       head.next = node;
       length++;
@@ -92,11 +93,11 @@ class LinkedList {
   
   // Copy a sorted list reverted in another
   public LinkedList copyListReverted(){
-    Node ptr = head;
+    Node ptr = head.next;
     LinkedList list2 = new LinkedList();
     
-    while(ptr.next != null){
-      list2.insertHead(ptr);
+    while(ptr != null){
+      list2.insertHead(ptr.data);
       ptr = ptr.next;
     }
     
@@ -118,7 +119,6 @@ public class Main {
 
     System.out.println("Insert node 1st list");
     list.append(27);
-    list.append(12);
     list.append(12);
     list.append(1009);
     list.append(4);

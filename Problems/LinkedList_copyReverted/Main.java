@@ -1,7 +1,9 @@
 /*
-Remove duplicates from sorted LinkedList
 
-DOESN'T WRONG, ERROR AHEAD
+- Copy sorted list in the same order in another list
+
+- Copy a sorted list reverted in another
+
 */
 
 class Node {
@@ -104,8 +106,9 @@ class LinkedList {
     return list2;
     
   }
-  
-  
+
+
+  // Copy sorted list in the same order in another list
   
   
 }

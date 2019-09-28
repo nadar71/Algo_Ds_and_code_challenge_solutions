@@ -109,6 +109,18 @@ class LinkedList {
 
 
   // Copy sorted list in the same order in another list
+  public LinkedList copySameOrder(){
+    Node ptr = head.next;
+    LinkedList list2 = new LinkedList();
+    
+    while(ptr != null){
+      list2.append(ptr.data);
+      ptr = ptr.next;
+    }
+    
+    return list2;
+    
+  }
   
   
 }
@@ -133,6 +145,11 @@ public class Main {
     System.out.println("revert list in  2nd list and print : ");
     list2 = list.copyListReverted();
     list2.printList();
+
+    System.out.println("Copy list in 2nd list IN THE SAME ORDER and print : ");
+    list2 = list.copySameOrder();
+    list2.printList();
+    
   
   }
 

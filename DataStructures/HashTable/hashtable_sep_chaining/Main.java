@@ -1,7 +1,7 @@
 
 
 class HashTable{
-  public final int tableSize;
+  public int tableSize;
 
   public Node[] list;
 
@@ -43,9 +43,9 @@ class HashTable{
   // reduce the hashcode value (here making the mod of it), and getting the index inside the hashtable
   // to make index range smaller and array dimension not too big
   public int computeHash(int key){
-    int hashValue = 0;
-    hashValue     = getHashCode(key);
-    return hashValue % tableSize;
+    int hashValue = getHashCode(key);
+    int hashCode = hashValue % tableSize;
+    return hashCode;
   }
 
 
@@ -54,10 +54,10 @@ class HashTable{
     if (data == null) data = key;
 
     int index  = computeHash(key);
-    Node head  = list[index];
+    Node head  = list[index];           // there is already a value at that index ( = collision)
     while( head != null ){              // Collision : key  already in hashtable, put it in the linked list
       
-      if(compare(head.key, key) == 0){  // Update : In case key is already present in list : exit
+      if(compare(head.key, key) == 0){  // Update : In case key is already present in list : overwrite and then exit
         head.data = data;
         return;
       }
@@ -88,12 +88,11 @@ class HashTable{
 
     // it is not head key node : search in the chained list
     while( head != null){
-      nextNode = head.next;
-      if ( (nextNode != null) && (compare(nextNode.key,key) == 0)  ){
-        head.next = nextNode.next;
+      if ( (head.next != null) && (compare(head.next.key,key) == 0)  ){
+        head.next = head.next.next;
         return true;
       }else{
-        head = nextNode;
+        head = head.next;
       }
     }
     return false;

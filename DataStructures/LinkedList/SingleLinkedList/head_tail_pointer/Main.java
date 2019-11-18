@@ -1,6 +1,10 @@
 /*
-Single Linked List with head and tail pointer
+Single Linked List with head and tail pointer.
+It has not very much sense if I’ve no prev item pointer : how can I insert a node at tail, without making the next point of the last but one element pointing to the new element ?!?
+
+Here the alternative is using an addittional node for tail (and head for simmetry) which a predefind value of -1 : must consider this situation in case I need to count linkedList item number
 */
+
 
 
 class Node{
@@ -17,13 +21,11 @@ class Node{
 
 
 class LinkedList{
-    Node head ; 
-    Node tail ;
+    Node head = null; 
+    Node tail = null;
     int length;
   
     public LinkedList(){
-        head = new Node(-1);
-        tail = new Node(-1);
         length = 0 ;
     }
   
@@ -63,7 +65,7 @@ class LinkedList{
     }
   
     public boolean isEmpty(){
-      if ( head.next == null || length <=0 ) {
+      if ( head == null || length <=0 ) {
         System.out.println("The list is empty");
         return true;
       }
@@ -73,33 +75,33 @@ class LinkedList{
 
   
     // O(1) :
-    public void appendHead(int d){
-      Node start = new Node(d);
+    public void insertAtHead(int d){
+      Node node = new Node(d);
       if (isEmpty()){
-        head.next = start;
-        tail.next = start;
+        head = node;
+        tail = node;
         length++;
         return;
       }
-      start.next = head.next;
-      head.next  = start;
+      node.next = head.next;
+      head      = node;
       length++;
     }
     
     
   
     // O(1) :
-    public void appendTail(int d){
-      Node end = new Node(d);
+    public void appendAtTail(int d){
+      Node node = new Node(d);
       if (isEmpty()){
         System.out.println("First element...");
-        head.next = end;
-        tail.next = end;
+        head = node;
+        tail = node;
         length++;
         return;
       }
-      tail.next.next = end;    // tail.next  it's the current last node
-      tail.next  = end;
+      node.next = tail.next;    
+      tail      = node;
       length++;
     }
     
@@ -108,15 +110,16 @@ class LinkedList{
     
     public void insertSortedNode(int d) { // ascending order
         Node node = new Node(d);
-        Node ptr  = head; // cursor pointer
     
         // no elements in list
-        if (head.next == null && tail.next == null) { // first node
-          head.next = node;  
-          tail.next = node;
+        if (head == null && tail == null) { // first node
+          head = node;  
+          tail = node;
           length++;
           return;
         }
+
+        Node ptr  = head; // cursor pointer
     
         // ptr.next != null means : last node
         while (ptr.next != null && greater(node.data, ptr.next.data))
@@ -125,21 +128,25 @@ class LinkedList{
         node.next = ptr.next;
         ptr.next = node;
         length++;
+
+        // inserted last element? update tail pointer
+        if (node.next == null) tail = node;
     
       }
     
     
     // time complexity worst case O(N)
     public void deleteNode(int d) {
-        Node ptr = head;
         if (isEmpty()) return;
+        Node ptr = head;
+
         
         while (ptr.next != null) {
           if (ptr.next.data == d) {       
             ptr.next = ptr.next.next;
     
             // deleted last element? update tail pointer
-            if (ptr.next == null) tail.next = ptr;
+            if (ptr.next == null) tail = ptr;
     
             length--;
             return;
@@ -152,8 +159,8 @@ class LinkedList{
   
     // delete list quick
     public void deleteListQuick() {
-      head.next = null;
-      tail.next = null;
+      head = null;
+      tail = null;
       length = 0;   
     }
     
@@ -167,29 +174,29 @@ public class Main {
   public static void main(String args[]) {
     LinkedList list = new LinkedList();
 
-    System.out.println("Insert node without sorting");
-    list.appendTail(27);
-    list.appendTail(12);
-    list.appendTail(1);
-    list.appendTail(1009);
-    list.appendTail(4);
-    list.appendTail(5);
-    list.appendTail(23);
-    list.appendTail(9);
+    System.out.println("\nInsert node without sorting");
+    list.appendAtTail(27);
+    list.appendAtTail(12);
+    list.appendAtTail(1);
+    list.appendAtTail(1009);
+    list.appendAtTail(4);
+    list.appendAtTail(5);
+    list.appendAtTail(23);
+    list.appendAtTail(9);
 
     list.printList();
     
-    System.out.println("Delete node in unsorted listed");
+    System.out.println("\nDelete node in unsorted listed");
     list.deleteNode(1009);
     list.deleteNode(1);
     list.deleteNode(5);
     list.printList();
     
-    System.out.println("Clear list.");
+    System.out.println("\nClear list.");
     list.deleteListQuick();
     list.printList();
         
-    System.out.println("Insert node in sorted List");
+    System.out.println("\nInsert node in sorted List");
     list.insertSortedNode(27);
     list.insertSortedNode(12);
     list.insertSortedNode(1);
@@ -198,14 +205,20 @@ public class Main {
     list.insertSortedNode(5);
     list.insertSortedNode(23);
     list.insertSortedNode(9);
-    list.appendTail(27);
+    list.appendAtTail(27);
+    list.insertSortedNode(20000);
 
     list.printList();
     
-    System.out.println("Delete node in sorted listed");
+    System.out.println("\nDelete node in sorted listed");
     list.deleteNode(1009);
     list.deleteNode(1);
     list.deleteNode(5);
+
+    System.out.println("\nDelete LAST node in sorted listed");
+    list.deleteNode(2000);
+
+
     
     list.printList();
     

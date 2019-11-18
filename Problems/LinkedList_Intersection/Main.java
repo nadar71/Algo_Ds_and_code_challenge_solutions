@@ -26,11 +26,10 @@ class Node {
 class LinkedList {
   Node head;
   int length;
-  Node loopNode;
+  boolean intersectFlag = false;
 
   public LinkedList() {
     head   = new Node();
-    loopNode = null;
     length = 0;
   }
 
@@ -78,7 +77,6 @@ class LinkedList {
   // delete list quick
   public void deleteListQuick() {
     head.next = null;
-    loopNode  = null;
     length    = 0;    
   }
 
@@ -96,10 +94,10 @@ class LinkedList {
   
   
   // connect present list to header.next of another list2
-  public connectList(LinkedList list2, int data){
+  public void connectList(LinkedList list2){
     Node ptr = head;
     
-    // the the last node
+    // get the last node
     while(ptr.next != null){
       ptr = ptr.next;
     }
@@ -110,8 +108,39 @@ class LinkedList {
   
   
   // check intersection of this list with another
-  public getIntersection(LinkedList list2){
+  public Node getIntersection(LinkedList list2){
+    // in this case I use length properties; otherwise must use getLength
+    int l1 = this.length;
+    int l2 = list2.length;
     
+    Node ptr  = this.head;
+    Node ptr2 = list2.head;
+    
+    
+    if (l1>l2){
+      int diff = l1-l2;
+      while(diff>0){
+        ptr2 = ptr2.next;
+        diff--;
+      }
+    } else if (l1<l2){
+      int diff = l2-l1;
+      while(diff>0){
+        ptr = ptr.next;
+        diff--;
+      }
+    }
+    
+    while(ptr.next != null && ptr2.next != null){
+      if(ptr.next == ptr2.next) {
+         intersectFlag = true;
+         return ptr.next;
+       }
+       ptr  = ptr.next;
+       ptr2 = ptr2.next;
+    }
+    intersectFlag = false;
+    return null;
   }
   
   
@@ -142,13 +171,18 @@ public class Main {
     list2.printList();
     
     
+    System.out.println("Connect the 2 lists");
+    list.connectList(list2);
+    
     System.out.println("Connect 1st list with 2nd list");
-    System.out.println("Result : " + list.isLoop());
-    
-    
-    
-    
-    
+    Node intersection = list.getIntersection(list2);
+    if (list.intersectFlag){
+       System.out.println("Result : " + list.intersectFlag + " and the node is : " + intersection.data);
+       list.printList();
+    }
+    else
+       System.out.println("No intersection found");
+ 
   
   }
 

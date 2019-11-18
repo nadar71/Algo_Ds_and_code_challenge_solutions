@@ -10,10 +10,6 @@ class Node {
   int data;
   Node next;
 
-  public Node() {
-    data = -1;
-    next = null;
-  }
   
   public Node(int d) {
     data = d;
@@ -25,11 +21,10 @@ class Node {
 
 
 class LinkedList {
-  Node head;
+  Node head = null;
   int length;
 
   public LinkedList() {
-    head   = new Node();
     length = 0;
   }
 
@@ -39,9 +34,9 @@ class LinkedList {
   
   
   public void printList() {
-    Node ptr = head.next;
     if (isEmpty()) return;
-
+    Node ptr = head;
+    
     while (ptr != null) {
       System.out.println(ptr.data);
       ptr = ptr.next;
@@ -50,7 +45,7 @@ class LinkedList {
   }
 
   public boolean isEmpty() {
-    if (head.next == null || length <=0) {
+    if (head == null || length <=0) {
       System.out.println("The list is empty");
       return true;
     }
@@ -61,14 +56,15 @@ class LinkedList {
   // time complexity O(n)
   public void append(int d) {
     Node node = new Node(d);
-    Node ptr = head; // cursor pointer
-
+    
     // empty list, first node
-    if (head.next == null) {
-      head.next = node;
+    if (head == null) {
+      head = node;
       length++;
       return;
     }
+
+    Node ptr = head; // cursor pointer
 
     while (ptr.next != null)
       ptr = ptr.next;
@@ -80,22 +76,30 @@ class LinkedList {
   // time complexity O(1)
   public void insertHead(int data){
       Node node = new Node(data);
-      node.next = head.next;
-      head.next = node;
+
+      // empty list, first node
+      if (head == null) {
+        head = node;
+        length++;
+        return;
+      }
+
+      node.next = head; 
+      head      = node;
       length++;
   }
   
 
   // delete list quick
   public void deleteListQuick() {
-    head.next = null;
+    head      = null;
     length    = 0;    
   }
   
   
   // Copy a sorted list reverted in another
   public LinkedList copyListReverted(){
-    Node ptr = head.next;
+    Node ptr = head;
     LinkedList list2 = new LinkedList();
     
     while(ptr != null){
@@ -110,7 +114,7 @@ class LinkedList {
 
   // Copy sorted list in the same order in another list
   public LinkedList copySameOrder(){
-    Node ptr = head.next;
+    Node ptr = head;
     LinkedList list2 = new LinkedList();
     
     while(ptr != null){
@@ -132,7 +136,7 @@ public class Main {
     LinkedList list  = new LinkedList();
     LinkedList list2 = new LinkedList();
 
-    System.out.println("Insert node 1st list");
+    System.out.println("\nInsert node 1st list");
     list.append(27);
     list.append(12);
     list.append(1009);
@@ -142,11 +146,12 @@ public class Main {
 
     list.printList();
     
-    System.out.println("revert list in  2nd list and print : ");
+    System.out.println("\nrevert list in  2nd list and print : ");
     list2 = list.copyListReverted();
     list2.printList();
+    // System.out.println("\n2nd list length : "+list2.length);
 
-    System.out.println("Copy list in 2nd list IN THE SAME ORDER and print : ");
+    System.out.println("\nCopy list in 2nd list IN THE SAME ORDER and print : ");
     list2 = list.copySameOrder();
     list2.printList();
     

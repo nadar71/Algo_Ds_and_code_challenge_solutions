@@ -6,10 +6,12 @@ class Node {
   int data;
   Node next;
 
+/*
   public Node() {
     data = -1;
     next = null;
   }
+  */
   
   public Node(int d) {
     data = d;
@@ -21,18 +23,18 @@ class Node {
 
 
 class LinkedList {
-  Node head;
+  Node head = null;
   int length;
 
   public LinkedList() {
-    head   = new Node();
     length = 0;
   }
 
 
   public void printList() {
-    Node ptr = head;
     if (isEmpty()) return;
+    Node ptr = head;
+
 
     while (ptr != null) {
       System.out.println(ptr.data);
@@ -42,7 +44,7 @@ class LinkedList {
   }
 
   public boolean isEmpty() {
-    if (head.next == null || length <=0) {
+    if (head == null || length <=0) {
       System.out.println("The list is empty");
       return true;
     }
@@ -52,17 +54,19 @@ class LinkedList {
   // time complexity O(n)
   public void append(int d) {
     Node node = new Node(d);
-    Node ptr = head; // cursor pointer
 
     // empty list, first node
-    if (head.next == null) {
-      head.next = node;
+    if (head == null) {
+      head = node;
       length++;
       return;
     }
 
+    Node ptr = head; // cursor pointer
+
     while (ptr.next != null)
       ptr = ptr.next;
+
     ptr.next = node;
     length++;
   }
@@ -72,21 +76,22 @@ class LinkedList {
 
   // delete list quick
   public void deleteListQuick() {
-    head.next = null;
+    head = null;
     length = 0;   
   }
   
-  // invert linked list
+  // invert linked list LINEARLY
+  // header --> a --> b --> c --> null
   public void reverseList(){
     Node curr = head;
     Node prev = null;
     Node next = null;
     
     while(curr != null){
-      next = curr.next;
-      curr.next = prev;
-      prev = curr;
-      curr = next;
+      next = curr.next; // store the next item to invert
+      curr.next = prev; // the curr.next will previous : null, a, b 
+      prev = curr;      // the next previous will be the present current
+      curr = next;      // the current will the stored next
     }
     
     head = prev;
@@ -99,7 +104,7 @@ class LinkedList {
   
   public Node reverseUtil(Node curr, Node next){
     Node prev;
-    if (curr == null) return null;
+    if (curr == null) return curr;
     if (curr.next == null) {
       curr.next = next;
       return curr;
@@ -119,7 +124,7 @@ public class Main {
   public static void main(String args[]) {
     LinkedList list = new LinkedList();
 
-    System.out.println("Insert node without sorting");
+    System.out.println("\nInsert node without sorting");
     list.append(27);
     list.append(12);
     list.append(1);
@@ -131,12 +136,12 @@ public class Main {
 
     list.printList();
     
-    System.out.println("Reverse list : ");
+    System.out.println("\nReverse list : ");
     list.reverseList();
     list.printList();
     
     
-    System.out.println("Recursively Reverse list : ");
+    System.out.println("\nRecursively Reverse list : ");
     list.reverseListRec();
     list.printList();
     

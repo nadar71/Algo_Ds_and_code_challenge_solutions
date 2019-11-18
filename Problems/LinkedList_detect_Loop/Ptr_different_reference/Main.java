@@ -1,24 +1,20 @@
 /*
 
-- Create loop in a list
-- Detect the loop : spfp or reversing list
+- Create artificially a loop in a list using a tail pointer
+- Detect the loop : slow pointer - fast pointer or reversing list
 - Print list with loop
 - Detect loop type
 - Remove loop
 
-Use a tail pointer for pointing to last item, a function findNode 
-and another for creating a loop on a choosen data/node
+Use a tail pointer for pointing to last item and a function findNode 
+to create a loop on a choosen data/node and then test the find loop 
+and remove loop algorithm
 
 */
 
 class Node {
   int data;
   Node next;
-
-  public Node() {
-    data = -1;
-    next = null;
-  }
   
   public Node(int d) {
     data = d;
@@ -30,22 +26,20 @@ class Node {
 
 
 class LinkedList {
-  Node head;
-  Node tail; // pointing to last item in list
+  Node head = null;
+  Node tail = null; // pointing to last item in list
   int length;
-  Node loopNode;
+  Node nodeInLoop,loopPoint;
 
   public LinkedList() {
-    head   = new Node();
-    tail   = new Node();
-    loopNode = null;
+    nodeInLoop = null;
     length = 0;
   }
 
   
   public void printList() {
-    Node ptr = head.next;
     if (isEmpty()) return;
+    Node ptr = head;    
 
     while (ptr != null) {
       System.out.println(ptr.data);
@@ -54,8 +48,10 @@ class LinkedList {
     System.out.println();
   }
 
+
+
   public boolean isEmpty() {
-    if (head.next == null || length <=0) {
+    if (head == null || length <=0) {
       System.out.println("The list is empty");
       return true;
     }
@@ -67,20 +63,22 @@ class LinkedList {
   // ** Modified version with tail : every append tail must be updated
   public void append(int d) {
     Node node = new Node(d);
-    Node ptr = head; // cursor pointer
 
     // empty list, first node
-    if (head.next == null) {
-      head.next = node;
-      tail.next = node;
+    if (head == null) {
+      head = node;
+      tail = node;
       length++;
       return;
     }
 
+    Node ptr = head; // cursor pointer    
+
     while (ptr.next != null)
       ptr = ptr.next;
+      
     ptr.next  = node;
-    tail.next = node;
+    tail      = node;
     length++;
   }
   
@@ -88,9 +86,10 @@ class LinkedList {
 
   // delete list quick
   public void deleteListQuick() {
-    head.next = null;
-    tail.next = null;
-    loopNode  = null;
+    head      = null;
+    tail      = null;
+    nodeInLoop  = null;
+    loopPoint = null;
     length    = 0;    
   }
 
@@ -105,40 +104,56 @@ class LinkedList {
     return null;
   }
   
+  // Find item before: O(length)
+  public Node findItemBefore(int n){
+    Node ptr = head;
+    while(ptr != null && ptr != null){
+      if (ptr.data == n) return ptr;
+      ptr = ptr.next;
+    }
+    return null;
+  }
+  
+  
   
   // Get last item : O(1)
   public Node getLastItem(){
-    return tail.next;
+    return tail;
   }
   
   
   // Create loop on a specific node
   public void createLoop(int start){
-    if (tail.next == null ) {
+    if (tail == null ) {
       System.out.println("Empty list");
     }
     Node found = findItem(start);
-    if (found != null) tail.next.next = found;
+    if (found != null) {
+      tail.next = found;
+      System.out.println("ELEMENTO prim del loop : "+tail.data);
+    }
     else System.out.println("Element not found");
   }
   
   
-  // Detect loop using 2 reference :
+  // Detect loop using 2 reference. 
+  // if there is a loop, they somewhere point the same node 
+  // inside the loop or at head if it's a circular list
   public boolean isLoop(){
     Node ptr      = head;
     Node ptr_fast = head;
     
-    while (ptr.next != null && ptr_fast.next.next != null){
-      ptr      = ptr.next;
-      ptr_fast = ptr_fast.next.next;
-      if (ptr.next == ptr_fast.next) {
-        loopNode = ptr.next;
+    while (ptr != null && ptr_fast != null && ptr_fast.next != null){      
+      if ( ptr == ptr_fast ) {
+        nodeInLoop = ptr;
         return true;
       }
+      ptr      = ptr.next;
+      ptr_fast = ptr_fast.next.next;
     }
-    loopNode = null;
     return false;
   }
+
   
   
   // invert linked list
@@ -156,6 +171,8 @@ class LinkedList {
     
     head = prev;
   }
+
+
   
   // Detect loop using list inversion :
   public boolean isLoop_reverting(){
@@ -175,44 +192,92 @@ class LinkedList {
   
   
   // check the kind of loop
-  public void checkLoopType(){
-    this.isLoop();
-    
-    if (loopNode !=null && loopNode == head.next) 
-       System.out.println("Circular List");
-    else if (loopNode !=null)
-        System.out.println("Normal loop in linear List");
-  }
-  
-  
-  // remove loop: in my case I have tail.next which point to the loop node
-  // so I can break the loop setting :
-  // if tail.next.next  point not to head : tail.next.next = null
-  // if tail.next.next  point to head : must find the the item pointing to tail.next node
-  //                                    and then make its next reference pointing to null
-  //                                    and tail.next poit to this node.
-  // NB : the head has data = -1 by convention, other ways can be found of course!
-  // otherwise
-  // I must search for the loop point modifiying isLoop() and getting the 
-  // reference to the loop node for both cases
-  public void removeLoop(){
-    if (tail.next.next != null) {
-       if (tail.next.next.data == -1) {
-         Node ptr = head;
-         while(ptr.next.next.data != -1){
-           ptr = ptr.next;
-         }
-         tail.next = ptr.next;
-         ptr.next.next = null;
-       }
-       else tail.next.next = null;
+  public int checkLoopType(){
+    Node ptr      = head;
+    Node ptr_fast = head;
+
+
+    while (ptr != null && ptr_fast != null && ptr_fast.next != null){
+
+      if ( ptr.next == head || ptr_fast.next.next == head){
+        nodeInLoop = ptr;
+        System.out.println("Circular List.");
+        return 1;
+      }
+
+      if ( ptr == ptr_fast){
+        nodeInLoop = ptr;
+        System.out.println("Generic loop in linear List.");
+        return 2;
+      }
+
+      ptr      = ptr.next;
+      ptr_fast = ptr_fast.next.next;
+
     }
+
+    System.out.println("No loop found.");
+    return 0;
   }
   
   
-  
+  /*
+  If loop point is at head, circular list, must get the node before it, and put its next=null
+  If  "     "   is generic, must use a 2nd ptr to nodeInLoop: it mets with ptr=head at loop point (!!!)
+  */
+  public void removeLoop(){
+    int type = checkLoopType();
+    Node ptr = head;
+    if (type == 1){ // node loop at head
+       while(ptr.next != head){
+          ptr = ptr.next;
+       }
+       ptr.next = null;
+
+    }else if(type == 2){
+       Node ptr_02 = nodeInLoop;
+       while(ptr.next != ptr_02.next){
+          ptr = ptr.next;
+          ptr_02 = ptr_02.next;
+       }
+       ptr_02.next = null;
+
+    } else return;
+  }
+
+ 
+  /*
+  Get loop point
+  If loop point is at head, circular list, must get the node before it, and put its next=null
+  If  "     "   is generic, must use a 2nd ptr to nodeInLoop: it mets with ptr=head at loop point (!!!)
+  */
+  public Node getLoopPoint(){
+    int type = checkLoopType();
+    Node ptr = head;
+    if (type == 1){ // node loop at head
+       while(ptr.next != head){
+          ptr = ptr.next;
+       }
+       return ptr.next;
+
+    }else if(type == 2){
+       Node ptr_02 = nodeInLoop;
+       while(ptr.next != ptr_02.next){
+          ptr = ptr.next;
+          ptr_02 = ptr_02.next;
+       }
+       return ptr_02.next;
+
+    } else return null;
+  }
+
+
+
  
 }
+
+
+
 
 
 public class Main {
@@ -245,12 +310,12 @@ public class Main {
     System.out.println("Check if there is a loop.");
     System.out.println("Result : " + list.isLoop());
     System.out.println("Result by reverting list : " + list.isLoop_reverting());
-    if (list.loopNode != null )  {
-      System.out.println("The loop is at item : " + list.loopNode.data);
-      System.out.println("Loop type : ");
-      list.checkLoopType();
+
+    if (list.isLoop() == true )  {
+      System.out.println("The loop is at item : " + list.getLoopPoint().data);
+      System.out.println("Loop type : "+list.checkLoopType());
     }
-    
+
     System.out.println("\nNow remove the loop");
     list.removeLoop();
     System.out.println("Check if there is a loop.");
@@ -276,8 +341,8 @@ public class Main {
     
     System.out.println("Check if there is a loop.");
     System.out.println("Result : " + list.isLoop());
-    if (list.loopNode != null )  {
-      System.out.println("The loop is at item : " + list.loopNode.data);
+    if (list.isLoop()  == true  )  {
+      System.out.println("The loop is at item : " + list.getLoopPoint().data);
       System.out.println("Loop type : ");
       list.checkLoopType();
     }
@@ -288,8 +353,6 @@ public class Main {
     System.out.println("Check if there is a loop.");
     System.out.println("Result : " + list.isLoop());
     System.out.println("Result by reverting list : " + list.isLoop_reverting());
-    
-    
     
   
   }

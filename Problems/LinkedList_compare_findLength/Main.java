@@ -7,10 +7,6 @@ class Node {
   int data;
   Node next;
 
-  public Node() {
-    data = -1;
-    next = null;
-  }
   
   public Node(int d) {
     data = d;
@@ -26,7 +22,7 @@ class LinkedList {
   int length;
 
   public LinkedList() {
-    head   = new Node();
+    head   = null;
     length = 0;
   }
 
@@ -36,8 +32,9 @@ class LinkedList {
   
   
   public void printList() {
-    Node ptr = head.next;
     if (isEmpty()) return;
+    Node ptr = head;
+
 
     while (ptr != null) {
       System.out.println(ptr.data);
@@ -47,7 +44,7 @@ class LinkedList {
   }
 
   public boolean isEmpty() {
-    if (head.next == null || length <=0) {
+    if (head == null || length <=0) {
       System.out.println("The list is empty");
       return true;
     }
@@ -58,14 +55,16 @@ class LinkedList {
   // time complexity worst case O(N)
   public void insertSortedNode(int d) { // ascending order
     Node node = new Node(d);
-    Node ptr  = head; // cursor pointer
 
     // no elements in list
-    if (head.next == null) { // first node
-      head.next = node;            
+    if (head == null) { // first node
+      head = node;            
       length++;
       return;
     }
+
+    Node ptr  = head; // cursor pointer
+
 
     // ptr.next != null means : last node
     while (ptr.next != null && greater(node.data, ptr.next.data))
@@ -80,8 +79,8 @@ class LinkedList {
 
   // delete list quick
   public void deleteListQuick() {
-    head.next = null;
-    length    = 0;    
+    head   = null;
+    length = 0;    
   }
   
   
@@ -91,7 +90,7 @@ class LinkedList {
   public int findLength(){
     Node ptr = head;
     int count = 0;
-    while (ptr.next != null) {
+    while (ptr != null) {
       ptr = ptr.next;
       count++;
     }
@@ -107,11 +106,11 @@ class LinkedList {
   }
   
   public boolean compareHelper(Node head1,Node head2){
-    if (head1.next == null && head2.next == null) return true;
-    if ( (head1.next == null && head2.next != null) || 
-         (head1.next != null && head2.next == null) ) return false;
+    if (head1 == null && head2 == null) return true;
+    if ( (head1 == null && head2 != null) || 
+         (head1 != null && head2 == null) ) return false;
        
-    if (head1.next.data == head2.next.data) return compareHelper(head1.next,head2.next);
+    if (head1.data == head2.data) return compareHelper(head1.next,head2.next);
     else return false;
   }
   
@@ -126,12 +125,12 @@ public class Main {
   public static void main(String args[]) {
     LinkedList list  = new LinkedList();
 
-    System.out.println("Find empty list length : "+list.findLength());
+    System.out.println("\nFind empty list length : "+list.findLength());
 
-    System.out.println("Insert node 1st list");
+    System.out.println("\nInsert node 1st list");
     list.insertSortedNode(27);
     
-    System.out.println("Find 1-element-list length : "+list.findLength());
+    System.out.println("\nFind 1-element-list length : "+list.findLength());
     list.insertSortedNode(12);
     list.insertSortedNode(1009);
     list.insertSortedNode(4);
@@ -140,16 +139,16 @@ public class Main {
 
     list.printList();
     
-    System.out.println("Find list length : "+list.findLength());
+    System.out.println("\nFind list length : "+list.findLength());
     
     
     
-    System.out.println("Compare lists unequals with 2nd empty : ");
+    System.out.println("\nCompare lists unequals with 2nd empty : ");
     LinkedList list2 = new LinkedList();
-    System.out.println("Result : " + list.compareWith(list2));
+    System.out.println("\nResult : " + list.compareWith(list2));
     
     
-    System.out.println("Compare lists equals : ");
+    System.out.println("\nCompare lists equals : ");
     list2.deleteListQuick();
     list2.insertSortedNode(27);
     list2.insertSortedNode(12);
@@ -157,10 +156,10 @@ public class Main {
     list2.insertSortedNode(4);
     list2.insertSortedNode(23);
     list2.insertSortedNode(9);
-    System.out.println("Result : " + list.compareWith(list2));
+    System.out.println("\nResult : " + list.compareWith(list2));
     
 
-    System.out.println("Compare lists unequals for length : ");
+    System.out.println("\nCompare lists unequals for length : ");
     list2.deleteListQuick();
     list2.insertSortedNode(27);
     list2.insertSortedNode(12);
@@ -169,9 +168,9 @@ public class Main {
     list2.insertSortedNode(23);
     list2.insertSortedNode(9);
     list2.insertSortedNode(9999);
-    System.out.println("Result : " + list.compareWith(list2));
+    System.out.println("\nResult : " + list.compareWith(list2));
     
-    System.out.println("Compare lists unequals for content : ");
+    System.out.println("\nCompare lists unequals for content : ");
     list2.deleteListQuick();
     list.insertSortedNode(27);
     list2.insertSortedNode(1);
@@ -179,11 +178,11 @@ public class Main {
     list2.insertSortedNode(34);
     list2.insertSortedNode(43);
     list2.insertSortedNode(8);
-    System.out.println("Result : " + list.compareWith(list2));
+    System.out.println("\nResult : " + list.compareWith(list2));
     
-    System.out.println("Compare lists unequals with 1st empty : ");
+    System.out.println("\nCompare lists unequals with 1st empty : ");
     list.deleteListQuick();
-    System.out.println("Result : " + list.compareWith(list2));
+    System.out.println("\nResult : " + list.compareWith(list2));
   
   
   }

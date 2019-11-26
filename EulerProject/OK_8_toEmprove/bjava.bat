@@ -1,0 +1,1 @@
+C:\My\Sun\SDK\jdk\bin\java MaxConsecutive1000

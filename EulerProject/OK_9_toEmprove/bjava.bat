@@ -1,0 +1,1 @@
+C:\My\Sun\SDK\jdk\bin\java PitagoreanProd1000

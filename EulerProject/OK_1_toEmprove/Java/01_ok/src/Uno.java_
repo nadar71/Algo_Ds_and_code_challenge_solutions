@@ -1,0 +1,82 @@
+
+
+/*
+If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. 
+The sum of these multiples is 23.
+
+Find the sum of all the multiples of 3 or 5 below 1000.
+*/
+
+/*
+TO DO :
+ok- output on a file as binary and not ascii code for treating numbers in excel and verify all
+*/
+
+
+
+import java.io.*;
+
+
+public class Uno{
+  private static int Mul3=0,Mul5=0,tot=0;
+  private static File res= new File("result.txt");
+  private static BufferedWriter out; 
+  //private static FileWriter out;
+  
+  public static void main(String args[]){
+      
+   
+   try{
+         out = new BufferedWriter(new FileWriter(res));
+         //out = new FileWriter(res);
+         
+  	 int count_3=0, count_5=0;
+  	 
+  	 out.write("multipli di 3 -----------------------------------------------------------------------------------------\n");
+  	 while (true) {
+  	 	
+  	 	if ( (Mul3+3)<1000 ) {
+  	 		count_3 += 1;
+  	 		Mul3 += 3;
+  	 		tot += Mul3;
+  	 		}
+	        else break ; 
+	        out.write(String.valueOf(Mul3));
+	        //out.newLine();	 		
+	        out.write("\n");
+  	 	
+  	 	System.out.printf("%d-%d-%d; ",count_3,Mul3,tot);
+  	 	}
+  	 	
+  	 	
+  	 System.out.printf("\n------------------------------------------------------------------------------\n");
+
+
+  	 out.write("multipli di 5 -----------------------------------------------------------------------------------------\n");  	  	
+  	 while (true) {
+ 
+  	 	if ( (Mul5+5)<1000 ) {
+  	 		count_5 += 1;
+  	 		Mul5 += 5;
+  	 		tot += Mul5;
+  	 		}
+	        else break  ;
+	        out.write(String.valueOf(Mul5));	 		
+	        //out.newLine();	 		
+	        out.write("\n");
+  	 	
+  	 	System.out.printf("%d-%d-%d; ",count_5,Mul5,tot);
+  	 	} 
+  	 	
+  	 out.close();
+  	 	
+    }catch(IOException e){
+  	 	e.printStackTrace();
+  	 	}
+  	 	
+  	 	
+  	 		 	
+    System.out.printf("totale : %d",tot);
+  }//main
+ 
+}

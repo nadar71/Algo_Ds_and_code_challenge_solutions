@@ -1,0 +1,32 @@
+
+
+1)
+http://java.dzone.com/articles/thursday-code-puzzler-compute
+Compute  Squares 
+Write a function that computes the square of a number without using *, ^, or +.
+
+
+2)
+http://java.dzone.com/articles/excercise-your-coding-muscles
+queens pb
+
+set the first position in the first row
+go to next row, set the queen in a different column form the queen in the previous row, then check for obliquity
+so on
+
+alghoritm for oblique collisions :
+
+   a11  a12   a13 ..... a1n
+   ........................
+   ai1  ai2   ai3 ..... ain
+   .......... aij ..... ain
+   am1  am2   ..........amn
+   
+   
+    aij : 1: a(i-1)(j-1)
+          2: a(i-1)(j+1)
+          3: a(i+1)(j-1)
+          4: a(i+1)(j+1)
+          
+          
+          

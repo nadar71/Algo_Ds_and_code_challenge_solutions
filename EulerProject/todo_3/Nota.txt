@@ -1,0 +1,8 @@
+
+-1
+
+1: n
+2: m = sqrt(n)
+3: prendi il più piccolo dei divisori di n , e < m : s
+4: calcola n/s = g
+5: -> controlla se g è primo con il metodo di sqrt

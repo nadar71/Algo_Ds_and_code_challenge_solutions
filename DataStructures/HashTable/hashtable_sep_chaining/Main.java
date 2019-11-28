@@ -1,4 +1,7 @@
-
+/*
+Easy HashTable sample implemented as an array of predefined length.
+Using a demo Hash function to return value from a key
+*/
 
 class HashTable{
   public int tableSize;
@@ -26,46 +29,40 @@ class HashTable{
     }
 
 
-  public int compare(int a, int b){
-    return a-b;
-  }
-
-
 
   // Get the hash code for the key. To keep things simple, here is a dummy hash function : 
   // it get the key, then simply return the key.
   // If as example the entry key was a phone number associated to employee
   // I can use the last 3 number as hashcode, and then hashtable index would be taken from this in computeHash
-  public int getHashCode(int key){
+  public int demoHashFunction(int key){
     return key;
   }
   
   // reduce the hashcode value (here making the mod of it), and getting the index inside the hashtable
   // to make index range smaller and array dimension not too big
   public int computeHash(int key){
-    int hashValue = getHashCode(key);
-    int hashCode = hashValue % tableSize;
-    return hashCode;
+    int hashValue = demoHashFunction(key);
+    return hashValue % tableSize;
   }
 
 
-  // to keep things simple, the key and the data associated are the same, here the field could have been only one
+  // to keep things simple, key and  data associated are int
   public void insert( int key, Integer data ){
     if (data == null) data = key;
 
     int index  = computeHash(key);
-    Node head  = list[index];           // there is already a value at that index ( = collision)
-    while( head != null ){              // Collision : key  already in hashtable, put it in the linked list
+    Node ptr  = list[index];           // there is already a value at that index ( = collision)
+    while( ptr != null ){              // Collision : key  already in hashtable, put it in the linked list
       
-      if(compare(head.key, key) == 0){  // Update : In case key is already present in list : overwrite and then exit
-        head.data = data;
+      if(ptr.key == key){  // Update : In case key is already present in list : overwrite and then exit
+        ptr.data = data;
         return;
       }
-      head = head.next;                 // put it at the end of the list
+      ptr = ptr.next;                 // put it at the end of the list
     }
 
     // No collision, new key; list.get(index) = null because that node at that index is not present
-    list[index] =  new Node(key, data, list[index]);
+    list[index] =  new Node(key, data, null);
   }
 
 
@@ -80,7 +77,7 @@ class HashTable{
     // (which will be : 
     // - null it is a key node with no list chained to it) 
     // - the next node in the chained list
-    if(  (head != null) && (compare(head.key,key) == 0) ){
+    if(  (head != null) && (head.key == key) ){
       list[index] = head.next;
       return true;
     }
@@ -88,7 +85,7 @@ class HashTable{
 
     // it is not head key node : search in the chained list
     while( head != null){
-      if ( (head.next != null) && (compare(head.next.key,key) == 0)  ){
+      if ( (head.next != null) && (head.key == key)  ){
         head.next = head.next.next;
         return true;
       }else{

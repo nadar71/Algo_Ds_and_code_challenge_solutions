@@ -3,7 +3,7 @@ Easy HashTable sample implemented as an array of predefined length.
 Using a demo Hash function to return value from a key
 */
 
-class HashTable{
+public class HashTable{
   public int tableSize;
 
   public Node[] list;
@@ -159,89 +159,3 @@ class HashTable{
   
 }
 
-
-
-
-
-
-
-public class Main{
-
-  public static void main(String args[]){
-    HashTable ht = new HashTable();
-
-    // to keep things simple : data is equals to 2*key 
-    // A realistic example, it could have been a list of phone numbers (keys) associated to name (value)
-    for(int i=51; i<110; i++){
-      ht.insert(i,2*i);
-    }
-
-    System.out.println("Common operations : ");
-    System.out.println("get value at key 60 : "+ht.getData(60));
-    System.out.println("get value at key 80 : "+ht.getData(80));
-    System.out.println("get value at key 102 : "+ht.getData(102));
-    
-    System.out.println("search for key 100 : "+ht.find(100));
-    System.out.println("remove for key 100 : "+ht.remove(100));
-    System.out.println("search for key 100 : "+ht.find(100));
-    System.out.println("remove for key 100 : "+ht.remove(100));
-    
-    
-    System.out.println("get value for key 101 : "+ht.getData(101));
-    System.out.println("Insert data with collision for index 101" +
-           "(corrisponding for hashtable of size=512 to key 101 as well as key : 512*101+101) = 51813) ");
-    ht.insert(51813,999);
-    System.out.println("get value for key 101 : "+ht.getData(101));
-    System.out.println("get all value for key 51813 : "+ht.getData(51813));
-    
-    System.out.println("\nremove for key 51813 (in chained list) : "+ht.remove(51813));
-    System.out.println("get value for key 101 : "+ht.getData(101));
-    System.out.println("get all value for key 51813 : "+ht.getData(51813));
-    
-    System.out.println("\nInsert data with collision for index 101" +
-           "(corrisponding for hashtable of size=512 to key 101 as well as key : 512*101+101) = 51813) ");
-    ht.insert(51813,999);
-    System.out.println("get value for key 101 : "+ht.getData(101));
-    System.out.println("get all value for key 51813 : "+ht.getData(51813));
-    
-    System.out.println("\nremove for key 101 (at start of chained list) : "+ht.remove(101));
-    System.out.println("get value for key 101 : "+ht.getData(101));
-    System.out.println("get all value for key 51813 : "+ht.getData(51813));
-    
-    
-
-
-  }
-}
-
-
-/*
-
-Common operations : 
-get value at key 60 : 120
-get value at key 80 : 160
-get value at key 102 : 204
-search for key 100 : true
-remove for key 100 : true
-search for key 100 : false
-remove for key 100 : false
-get value for key 101 : 202
-Insert data with collision for index 101(corrisponding for hashtable of size=512 to key 101 as well as key : 512*101+101) = 51813) 
-get value for key 101 : 202
-get all value for key 51813 : 999
-
-remove for key 51813 (in chained list) : true
-get value for key 101 : 202
-get all value for key 51813 : null
-
-Insert data with collision for index 101(corrisponding for hashtable of size=512 to key 101 as well as key : 512*101+101) = 51813) 
-get value for key 101 : 202
-get all value for key 51813 : 999
-
-remove for key 101 (at start of chained list) : true
-get value for key 101 : null
-get all value for key 51813 : 999
-
-
-
-*/

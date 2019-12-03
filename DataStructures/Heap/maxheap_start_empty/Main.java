@@ -59,16 +59,13 @@ class MaxPriorityQueue{
 
     if (arr.get(parent) < arr.get(pos)){
       swap(parent,pos);
-      System.out.println("\nSwap");
-      printArr();
       goUp(parent);
     }
-    System.out.println("\n");
   }
 
 
   // add a new element at the end of the array
-  // then  using createPriorityQueue to keep max/min heap order
+  // then  using createPriorityQueue/percolate down to keep max/min heap order
   public void add(int value){
     arr.add(value);    
     length = arr.size();

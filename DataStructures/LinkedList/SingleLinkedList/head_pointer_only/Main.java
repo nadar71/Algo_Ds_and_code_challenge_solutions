@@ -6,11 +6,7 @@ Single Linked List with only head pointer (not tail pointer)
 class Node {
 	int data;
 	Node next;
-	
-	public Node() {
-		data = -1;
-		next = null;
-	}
+
 
 	public Node(int d) {
 		data = d;
@@ -22,11 +18,11 @@ class Node {
 
 
 class LinkedList {
-	Node head;
+	Node head = null ;
 	int length;
 
 	public LinkedList() {
-		head   = new Node();
+		// head   = new Node();
 		length = 0;
 	}
 
@@ -62,7 +58,7 @@ class LinkedList {
 	}
 
 	public boolean isEmpty() {
-		if (head.next == null || length <=0) {
+		if (head == null || length <=0) {
 			System.out.println("The list is empty");
 			return true;
 		}
@@ -72,14 +68,14 @@ class LinkedList {
 	// time complexity O(n)
 	public void append(int d) {
 		Node node = new Node(d);
-		Node ptr = head; // cursor pointer
-
 		// empty list, first node
-		if (head.next == null) {
-			head.next = node;
-			length++;
-			return;
+		if (head == null) {
+		  head = node;
+		  length++;
+		  return;
 		}
+		
+		Node ptr = head; // cursor pointer
 
 		while (ptr.next != null)
 			ptr = ptr.next;
@@ -105,8 +101,8 @@ class LinkedList {
 		
 	// delete list deeply
 	public void deleteListDeep() {
-		Node ptr = head;
 		if (isEmpty()) return;
+		Node ptr = head;
 
 		while (ptr.next != null) {
 			Node tmp = ptr.next;
@@ -127,14 +123,15 @@ class LinkedList {
 	// time complexity worst case O(N)
 	public void insertSortedNode(int d) { // ascending order
 		Node node = new Node(d);
-		Node ptr  = head; // cursor pointer
 
 		// no elements in list
-		if (head.next == null) { // first node
-			head.next = node;			       
+		if (head == null) { // first node
+			head = node;			       
 			length++;
 			return;
 		}
+		
+		Node ptr  = head; // cursor pointer
 
 		// ptr.next != null means : last node
 		while (ptr.next != null && greater(node.data, ptr.next.data))
@@ -153,7 +150,7 @@ public class Main {
 	public static void main(String args[]) {
 		LinkedList list = new LinkedList();
 
-		System.out.println("Insert node without sorting");
+		System.out.println("\nInsert node without sorting");
 		list.append(27);
 		list.append(12);
 		list.append(1);
@@ -165,17 +162,17 @@ public class Main {
 
 		list.printList();
 		
-		System.out.println("Delete node in unsorted listed");
+		System.out.println("\nDelete node in unsorted listed");
 		list.deleteNode(1009);
 		list.deleteNode(1);
 		list.deleteNode(5);
 		list.printList();
 		
-		System.out.println("Clear list.");
+		System.out.println("\nClear list.");
 		list.deleteListDeep();
 		list.printList();
         
-		System.out.println("Insert node in sorted List");
+		System.out.println("\nInsert node in sorted List");
 		list.insertSortedNode(27);
 		list.insertSortedNode(12);
 		list.insertSortedNode(1);
@@ -188,7 +185,7 @@ public class Main {
 
 		list.printList();
 		
-		System.out.println("Delete node in sorted listed");
+		System.out.println("\nDelete node in sorted listed");
 		list.deleteNode(1009);
 		list.deleteNode(1);
 		list.deleteNode(5);

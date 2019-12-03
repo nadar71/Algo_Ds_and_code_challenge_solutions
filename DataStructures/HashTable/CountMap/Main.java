@@ -1,154 +1,3 @@
-
-// ------------------- CountMap
-class HashTable{
-  public final int tableSize;
-
-  public Node[] list;
-
-
-  public HashTable(){
-     tableSize = 512;
-     list      = new Node[tableSize];
-  }
-
-
-
-    class Node{
-      int key;
-      int data;
-      Node next;
-
-      public Node(int key, int data, Node next){
-        this.key  = key;
-        this.data = data;
-        this.next = next;
-      }
-    }
-
-
-  public int compare(int a, int b){
-    return a-b;
-  }
-
-
-
-  // Get the hash code for the key. To keep things simple, here is a dummy hash function : 
-  // it get the key, then simply return the key.
-  // If as example the entry key was a phone number associated to employee
-  // I can use the last 3 number as hashcode, and then hashtable index would be taken from this in computeHash
-  public int getHashCode(int key){
-    return key;
-  }
-  
-  // reduce the hashcode value (here making the mod of it), and getting the index inside the hashtable
-  // to make index range smaller and array dimension not too big
-  public int computeHash(int key){
-    int hashValue = 0;
-    hashValue     = getHashCode(key);
-    return hashValue % tableSize;
-  }
-
-
-  // to keep things simple, the key and the data associated are the same, here the field could have been only one
-  public void insert( int key, Integer data ){
-    if (data == null) data = key;
-
-    int index  = computeHash(key);
-    Node head  = list[index];
-    while( head != null ){              // Collision : key  already in hashtable, put it in the linked list
-      
-      if(compare(head.key, key) == 0){  // Update : In case key is already present in list : exit
-        head.data = data;
-        return;
-      }
-      head = head.next;                 // put it at the end of the list
-    }
-
-    // No collision, new key; list.get(index) = null because that node at that index is not present
-    list[index] =  new Node(key, data, list[index]);
-  }
-
-
-
-
-  public boolean remove(int key){    
-    Node nextNode;
-    int index = computeHash(key);
-    Node head = list[index];
-    
-    // if is a head key node, delete pointing to the next node 
-    // (which will be : 
-    // - null it is a key node with no list chained to it) 
-    // - the next node in the chained list
-    if(  (head != null) && (compare(head.key,key) == 0) ){
-      list[index] = head.next;
-      return true;
-    }
-
-
-    // it is not head key node : search in the chained list
-    while( head != null){
-      nextNode = head.next;
-      if ( (nextNode != null) && (compare(nextNode.key,key) == 0)  ){
-        head.next = nextNode.next;
-        return true;
-      }else{
-        head = nextNode;
-      }
-    }
-    return false;
-  }
-
-
-
-  public void print(){
-    for(int i=0; i<tableSize; i++){
-      System.out.print("Print for index value : "+i+" Values :: ");
-
-      Node head = list[i];
-      if (head == null) {
-        System.out.println("0");
-        continue;
-      }
-      while(head != null){
-        System.out.println(head.data);
-        head = head.next;
-      }
-    }
-  }
-
-
-  public boolean find(int key){
-    int index = computeHash(key);
-    Node head = list[index];
-
-    while(head != null){
-      if(head.key == key) return true; // key node
-      head = head.next;                // search in chained list
-    }
-    return false;
-  }
-
-
-  public Integer getData(int key){
-    int index = computeHash(key);
-    Node head = list[index];
-
-    while(head != null){
-      if(head.key == key) return head.data; // key node
-      head = head.next;                     // search in chained list
-    }
-    return null;
-  }
-
-  
-}
-
-
-
-
-
-
 // ------------------- CountMap
 
 class CountMap{
@@ -166,7 +15,7 @@ class CountMap{
     sizeCountMap++;
     if(hm.find(key)){      // if already in hm, increment value
       int cnt = hm.getData(key);
-      hm.insert(key, cnt+1);
+      hm.insert(key, ++cnt);
     } else { 
       hm.insert(key, 1);   // else if new, set 1
     }
@@ -191,11 +40,11 @@ class CountMap{
 
   public void decrementDataBy(int key, int dec){
     int cnt = hm.getData(key);
-    hm.insert(key, cnt-1);
+    hm.insert(key, --cnt);
 
   }
 
-  public Integer getData(int key){
+  public Integer getDataCount(int key){
     if(hm.find(key)) return hm.getData(key);
     else return 0;
   }
@@ -218,7 +67,6 @@ class CountMap{
 }
 
 
-// ------------------- TEST
 
 public class Main{
 
@@ -228,27 +76,33 @@ public class Main{
     
     
     CountMap cm = new CountMap();
+    
+    System.out.println("Create my map. ");
     for(int i=0;i<data.length;i++){
       cm.insert(data[i]);
     }
+    
+    System.out.println("Found 299 ? "+cm.find(299));
+  
     cm.insert(2);
-    System.out.println("search 2 : "+cm.find(2));
+    System.out.println("Found 2 ? "+cm.find(2));
     cm.insert(2); 
-    System.out.println("search 2 : "+cm.find(2));
+    System.out.println("Found 2 ? "+cm.find(2));
 
-    System.out.println("Count is : "+cm.getData(2));
+    System.out.println("Found is ? "+cm.getDataCount(2));
 
     cm.remove(2);
-    System.out.println("search 2 : "+cm.find(2));
-    System.out.println("Count is : "+cm.getData(2));
+    System.out.println("Found 2 ? "+cm.find(2));
+    System.out.println("Count is : "+cm.getDataCount(2));
 
-    System.out.println("Count is : "+cm.getData(332));
+    System.out.println("Count is : "+cm.getDataCount(332));
     
     // System.out.println("Count Map value : ");
     // cm.print();
     
     for(int i=0;i<data.length;i++){
-      System.out.println("For "+i+" counts are : "+cm.getData(i));
+      Integer numCount = cm.getDataCount(i);
+      if (numCount != null) System.out.println("For "+i+" counts are : "+numCount);
     }
     
     

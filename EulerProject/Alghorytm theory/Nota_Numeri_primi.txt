@@ -1,0 +1,61 @@
+
+- 1 -
+Banalmente , un numero è primo se non è divisibile per nessun numero inferiore : però se n è grande, è lunga da verificare
+for (int i=2; i<n; i++)
+   if (n%i==0) return false;
+
+return true;
+
+
+
+
+
+
+- 2 -
+Dato n, devo verificare se primo.
+M è la sua sqrt.
+Se n è divisibile per un numero x maggiore di m, allora sarà anche divisibile per il risultato di questa divisione : n/x ,
+che è un numero y<m .
+
+Perciò, per verificare che un numero è primo, devo verificare che nessun numero < sqrt(n)=m sia suo divisore; in caso contrario NON e' primo.
+Da questo escludo i numeri 1, 2, e tutti i numeri pari, perciò parto a contare da 3  , e aggiungo 2 :
+
+
+public boolean isPrime (int n)
+{
+   if (n<=1) return false;
+   if (n==2) return true;
+   if (n%2==0) return false;
+   int m=Math.sqrt(n);
+
+   for (int i=3; i<=m; i+=2)
+      if (n%i==0)
+         return false;
+
+   return true;
+}
+
+
+
+
+
+
+
+- 3 - crivello di eratostene
+public boolean[] sieve(int n)
+{
+   boolean[] prime=new boolean[n+1];
+   Arrays.fill(prime,true);
+   prime[0]=false;
+   prime[1]=false;
+   int m=Math.sqrt(n);
+
+   for (int i=2; i<=m; i++)
+      if (prime[i])
+         for (int k=i*i; k<=n; k+=i)
+            prime[k]=false;
+
+   return prime;
+} 
+
+

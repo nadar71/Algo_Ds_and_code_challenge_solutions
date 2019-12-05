@@ -1,6 +1,3 @@
-/*
-Single Linked List with only head pointer (not tail pointer)
-*/
 
 
 class Node {
@@ -22,36 +19,24 @@ class LinkedList {
 	int length;
 
 	public LinkedList() {
-		// head   = new Node();
 		length = 0;
 	}
 
-	public boolean greater(int v1, int v2) {
-		return v1 > v2;
-	}
 
-	public boolean smaller(int v1, int v2) {
-		return v1 < v2;
-	}
-
-	public boolean greaterEq(int v1, int v2) {
-		return v1 >= v2;
-	}
-
-	public boolean smallerEq(int v1, int v2) {
-		return v1 <= v2;
-	}
 
 	public void printList() {
-		Node ptr = head;
-		if (isEmpty()) return;
+	    Node ptr = head;
 
-		while (ptr != null) {
-			System.out.println(ptr.data);
-			ptr = ptr.next;
-		}
-		System.out.println();
-	}
+	    if (isEmpty())
+	      return;
+
+	    while (ptr != null) {
+	      System.out.print(ptr.data + " ");
+	      ptr = ptr.next;
+	    }
+	    System.out.println(" ");
+
+    }
 
 	public int size() {
 		return length;
@@ -83,38 +68,52 @@ class LinkedList {
 		length++;
 	}
 
+
+	public void insertAtHead(int d) {
+		Node node = new Node(d);
+		// empty list, first node
+		if (head == null) {
+		  head = node;
+		  length++;
+		  return;
+		}
+		
+		node.next = head; 
+		head      = node;
+		length++;
+	}
+
 	// delete node
 	public void deleteNode(int d) {
-		Node ptr = head;
 		if (isEmpty()) return;
 		
-		while (ptr.next != null) {
-			if (ptr.next.data == d) {				
-				ptr.next = ptr.next.next;
-				length--;
-				return;
-			}else ptr = ptr.next;			
-		}
-
-		System.out.println("Element not present in list.");
-	}
-		
-	// delete list deeply
-	public void deleteListDeep() {
-		if (isEmpty()) return;
-		Node ptr = head;
-
-		while (ptr.next != null) {
-			Node tmp = ptr.next;
-			ptr.next = null;
-			ptr = tmp;
+		// delete at head
+		if (d == head.data) {
+			head = head.next;
 			length--;
+			return;
+		}		
+		
+		Node ptr = head;
+		
+		
+		while (ptr.next != null && d != ptr.next.data) {
+			  ptr = ptr.next;
 		}
+		
+		if(ptr.next == null) {
+			System.out.println("Element not present.");
+		}else {
+			ptr.next  = ptr.next.next;
+			length--;
+			return;
+		}
+	
 	}
 
 
-	// delete list quick
-	public void deleteListQuick() {
+	// delete list 
+	public void deleteList() {
 		head = null;
 		length = 0;		
 	}
@@ -134,7 +133,7 @@ class LinkedList {
 		Node ptr  = head; // cursor pointer
 
 		// ptr.next != null means : last node
-		while (ptr.next != null && greater(node.data, ptr.next.data))
+		while (ptr.next != null && node.data > ptr.next.data)
 			ptr = ptr.next;
 
 		node.next = ptr.next;
@@ -161,15 +160,38 @@ public class Main {
 		list.append(9);
 
 		list.printList();
+
+		System.out.println("\nInsert node at start of the list");
+		list.insertAtHead(10);
+		list.insertAtHead(20);
+		list.insertAtHead(30);
+
+		list.printList();
+
 		
 		System.out.println("\nDelete node in unsorted listed");
-		list.deleteNode(1009);
-		list.deleteNode(1);
-		list.deleteNode(5);
-		list.printList();
+	    list.deleteNode(1009);
+	    list.deleteNode(1);
+	    list.deleteNode(5);
+	    list.printList();
+
+	    System.out.println("\nDelete first node");
+	    list.deleteNode(30);
+	    list.printList();
+
+	    System.out.println("\nDelete second node");
+	    list.deleteNode(20);
+	    list.printList();
+
+	    System.out.println("\nDelete last node");
+	    list.deleteNode(9);
+	    list.printList();
+
+	    System.out.println("\nDelete node not present");
+	    list.deleteNode(99999);
 		
 		System.out.println("\nClear list.");
-		list.deleteListDeep();
+		list.deleteList();
 		list.printList();
         
 		System.out.println("\nInsert node in sorted List");
@@ -195,3 +217,37 @@ public class Main {
 	}
 
 }
+
+/*
+ 
+Insert node without sorting
+27 12 1 1009 4 5 23 9  
+
+Insert node at start of the list
+30 20 10 27 12 1 1009 4 5 23 9  
+
+Delete node in unsorted listed
+30 20 10 27 12 4 23 9  
+
+Delete first node
+20 10 27 12 4 23 9  
+
+Delete second node
+Element not present.
+20 10 27 12 4 23 9  
+
+Delete last node
+20 10 27 12 4 23  
+
+Delete node not present
+Element not present.
+
+Clear list.
+The list is empty
+
+Insert node in sorted List
+27 1 4 5 9 12 23 1009 27  
+
+Delete node in sorted listed
+27 4 9 12 23 27  
+*/

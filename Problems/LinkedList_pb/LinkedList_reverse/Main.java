@@ -2,84 +2,10 @@
 Reverse list iteratively and recursively
 */
 
-class Node {
-  int data;
-  Node next;
-
-/*
-  public Node() {
-    data = -1;
-    next = null;
-  }
-  */
-  
-  public Node(int d) {
-    data = d;
-    next = null;
-  }
-
-}
-
-
-
-class LinkedList {
-  Node head = null;
-  int length;
-
-  public LinkedList() {
-    length = 0;
-  }
-
-
-  public void printList() {
-    if (isEmpty()) return;
-    Node ptr = head;
-
-
-    while (ptr != null) {
-      System.out.println(ptr.data);
-      ptr = ptr.next;
-    }
-    System.out.println();
-  }
-
-  public boolean isEmpty() {
-    if (head == null || length <=0) {
-      System.out.println("The list is empty");
-      return true;
-    }
-    else return false;
-  }
-
-  // time complexity O(n)
-  public void append(int d) {
-    Node node = new Node(d);
-
-    // empty list, first node
-    if (head == null) {
-      head = node;
-      length++;
-      return;
-    }
-
-    Node ptr = head; // cursor pointer
-
-    while (ptr.next != null)
-      ptr = ptr.next;
-
-    ptr.next = node;
-    length++;
-  }
 
   
+class LinkedListUtil extends LinkedList{
 
-
-  // delete list quick
-  public void deleteListQuick() {
-    head = null;
-    length = 0;   
-  }
-  
   // invert linked list LINEARLY
   // header --> a --> b --> c --> null
   public void reverseList(){
@@ -88,10 +14,12 @@ class LinkedList {
     Node next = null;
     
     while(curr != null){
-      next = curr.next; // store the next item to invert
-      curr.next = prev; // the curr.next will previous : null, a, b 
+      next = curr.next; // store the next item to be inverted
+
+      curr.next = prev; // the curr.next will be the previous : null, a, b 
       prev = curr;      // the next previous will be the present current
-      curr = next;      // the current will the stored next
+      curr = next;      // the current will be the stored next
+      
     }
     
     head = prev;
@@ -122,7 +50,7 @@ class LinkedList {
 public class Main {
 
   public static void main(String args[]) {
-    LinkedList list = new LinkedList();
+    LinkedListUtil list = new LinkedListUtil();
 
     System.out.println("\nInsert node without sorting");
     list.append(27);
@@ -149,3 +77,14 @@ public class Main {
   }
 
 }
+
+/*
+Insert node without sorting
+27 12 1 1009 4 5 23 9  
+
+Reverse list : 
+9 23 5 4 1009 1 12 27  
+
+Recursively Reverse list : 
+27 12 1 1009 4 5 23 9 
+*/

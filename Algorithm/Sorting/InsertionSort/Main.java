@@ -10,7 +10,7 @@ public class Main{
 	
 	public static void main(String args[]){
 		InsertionSort bs = new InsertionSort();
-		int[] arr = {2,3,4,665,3,2,4,6,8,9,3,2,12,13,47,89,18,14};
+		int[] arr = {6,5,9,2,3,4,665,3,2,4,3,2,12,13,47,89,18,14};
 
 		printArray(bs.sorting(arr));
 

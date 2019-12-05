@@ -1,20 +1,17 @@
 /*
-
-- Copy sorted list in the same order in another list
-
-- Copy a sorted list reverted in another
-
+- Copy sorted double list in the same order in another list
+- Copy a sorted double list reverted in another
 */
 
-class LinkedListUtil extends LinkedList{
+class DoubleLinkedListUtil extends DoubleLinkedList{
   
   // Copy a sorted list reverted in another
-  public LinkedList copyListReverted(){
+  public DoubleLinkedList copyListReverted(){
     Node ptr = head;
-    LinkedList list2 = new LinkedList();
+    DoubleLinkedList list2 = new DoubleLinkedList();
     
     while(ptr != null){
-      list2.insertAtHead(ptr.data);
+    	list2.appendAtHead(ptr.data);
       ptr = ptr.next;
     }
     
@@ -24,12 +21,12 @@ class LinkedListUtil extends LinkedList{
 
 
   // Copy sorted list in the same order in another list
-  public LinkedList copySameOrder(){
+  public DoubleLinkedList copySameOrder(){
     Node ptr = head;
-    LinkedList list2 = new LinkedList();
+    DoubleLinkedList list2 = new DoubleLinkedList();
     
     while(ptr != null){
-      list2.append(ptr.data);
+      list2.appendAtTail(ptr.data);
       ptr = ptr.next;
     }
     
@@ -44,16 +41,16 @@ class LinkedListUtil extends LinkedList{
 public class Main {
 
   public static void main(String args[]) {
-  LinkedListUtil list  = new LinkedListUtil();
-    LinkedList list2 = new LinkedList();
+    DoubleLinkedListUtil list  = new DoubleLinkedListUtil();
+    DoubleLinkedList list2 = new DoubleLinkedList();
 
     System.out.println("\nInsert node 1st list");
-    list.append(27);
-    list.append(12);
-    list.append(1009);
-    list.append(4);
-    list.append(23);
-    list.append(9);
+    list.appendAtTail(27);
+    list.appendAtTail(12);
+    list.appendAtTail(1009);
+    list.appendAtTail(4);
+    list.appendAtTail(23);
+    list.appendAtTail(9);
 
     list.printList();
     
@@ -72,12 +69,18 @@ public class Main {
 }
 
 /*
+
 Insert node 1st list
+The list is empty
+First element...
 27 12 1009 4 23 9  
 
 revert list in  2nd list and print : 
+The list is empty
 9 23 4 1009 12 27  
 
 Copy list in 2nd list IN THE SAME ORDER and print : 
-27 12 1009 4 23 9  
+The list is empty
+First element...
+27 12 1009 4 23 9 
 */

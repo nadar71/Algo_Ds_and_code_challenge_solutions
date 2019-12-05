@@ -3,89 +3,10 @@
 - Compare 2 sorted list recursively
 */
 
-class Node {
-  int data;
-  Node next;
-
-  
-  public Node(int d) {
-    data = d;
-    next = null;
-  }
-
-}
 
 
+class LinkedListUtil extends LinkedList{
 
-class LinkedList {
-  Node head;
-  int length;
-
-  public LinkedList() {
-    head   = null;
-    length = 0;
-  }
-
-  public boolean greater(int v1, int v2) {
-    return v1 > v2;
-  }
-  
-  
-  public void printList() {
-    if (isEmpty()) return;
-    Node ptr = head;
-
-
-    while (ptr != null) {
-      System.out.println(ptr.data);
-      ptr = ptr.next;
-    }
-    System.out.println();
-  }
-
-  public boolean isEmpty() {
-    if (head == null || length <=0) {
-      System.out.println("The list is empty");
-      return true;
-    }
-    else return false;
-  }
-
-
-  // time complexity worst case O(N)
-  public void insertSortedNode(int d) { // ascending order
-    Node node = new Node(d);
-
-    // no elements in list
-    if (head == null) { // first node
-      head = node;            
-      length++;
-      return;
-    }
-
-    Node ptr  = head; // cursor pointer
-
-
-    // ptr.next != null means : last node
-    while (ptr.next != null && greater(node.data, ptr.next.data))
-      ptr = ptr.next;
-
-    node.next = ptr.next;
-    ptr.next = node;
-    length++;
-
-  }
-
-
-  // delete list quick
-  public void deleteListQuick() {
-    head   = null;
-    length = 0;    
-  }
-  
-  
-  
-  
   // find list length . O(n)
   public int findLength(){
     Node ptr = head;
@@ -93,8 +14,7 @@ class LinkedList {
     while (ptr != null) {
       ptr = ptr.next;
       count++;
-    }
-    
+    }   
     return count;
   }
   
@@ -123,14 +43,16 @@ class LinkedList {
 public class Main {
 
   public static void main(String args[]) {
-    LinkedList list  = new LinkedList();
+  LinkedListUtil list  = new LinkedListUtil();
 
     System.out.println("\nFind empty list length : "+list.findLength());
 
     System.out.println("\nInsert node 1st list");
     list.insertSortedNode(27);
     
-    System.out.println("\nFind 1-element-list length : "+list.findLength());
+    System.out.println("1-element-list length : "+list.findLength());
+    
+    System.out.println("\nInsert new items :");
     list.insertSortedNode(12);
     list.insertSortedNode(1009);
     list.insertSortedNode(4);
@@ -139,7 +61,7 @@ public class Main {
 
     list.printList();
     
-    System.out.println("\nFind list length : "+list.findLength());
+    System.out.println("Find list length : "+list.findLength());
     
     
     
@@ -148,8 +70,8 @@ public class Main {
     System.out.println("\nResult : " + list.compareWith(list2));
     
     
-    System.out.println("\nCompare lists equals : ");
-    list2.deleteListQuick();
+    System.out.println("\nInsert in list 2 the same items, and compare lists equals : ");
+    list2.deleteList();
     list2.insertSortedNode(27);
     list2.insertSortedNode(12);
     list2.insertSortedNode(1009);
@@ -159,8 +81,8 @@ public class Main {
     System.out.println("\nResult : " + list.compareWith(list2));
     
 
-    System.out.println("\nCompare lists unequals for length : ");
-    list2.deleteListQuick();
+    System.out.println("\nAdd more items in list 2, Compare lists unequals for length : ");
+    list2.deleteList();
     list2.insertSortedNode(27);
     list2.insertSortedNode(12);
     list2.insertSortedNode(1009);
@@ -171,7 +93,7 @@ public class Main {
     System.out.println("\nResult : " + list.compareWith(list2));
     
     System.out.println("\nCompare lists unequals for content : ");
-    list2.deleteListQuick();
+    list2.deleteList();
     list.insertSortedNode(27);
     list2.insertSortedNode(1);
     list2.insertSortedNode(10);
@@ -181,10 +103,43 @@ public class Main {
     System.out.println("\nResult : " + list.compareWith(list2));
     
     System.out.println("\nCompare lists unequals with 1st empty : ");
-    list.deleteListQuick();
+    list.deleteList();
     System.out.println("\nResult : " + list.compareWith(list2));
   
   
   }
 
 }
+
+/*
+
+Find empty list length : 0
+
+Insert node 1st list
+Find 1-element-list length : 1
+
+ Insert new items :
+27 4 9 12 23 1009  
+Find list length : 6
+
+Compare lists unequals with 2nd empty : 
+
+Result : false
+
+Insert in list 2 the same items, and compare lists equals : 
+
+Result : true
+
+Add more items in list 2, Compare lists unequals for length : 
+
+Result : false
+
+Compare lists unequals for content : 
+
+Result : false
+
+Compare lists unequals with 1st empty : 
+
+Result : false
+
+*/

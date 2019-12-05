@@ -1,17 +1,6 @@
-class Node {
-  int data;
-  Node next, prev;
-  int length;
 
-  public Node(int d) {
-    data = d;
-    next = null;
-    prev = null;
-  }
 
-}
-
-class DoubleLinkedList {
+public class DoubleLinkedList {
   Node head;
   Node tail;
   int length;
@@ -118,7 +107,7 @@ class DoubleLinkedList {
       ptr.next.prev = node;
       ptr.next = node;
       */
-      node.next = ptr.next;
+        node.next = ptr.next;
       node.prev = ptr;
       ptr.next = node;
       node.next.prev = node;
@@ -171,94 +160,3 @@ class DoubleLinkedList {
 
 }
 
-public class Main {
-
-  public static void main(String args[]) {
-    DoubleLinkedList list = new DoubleLinkedList();
-
-    System.out.println("Insert node without sorting");
-    list.appendAtTail(27);
-    list.appendAtTail(12);
-    list.appendAtTail(1);
-    list.appendAtHead(110);
-    list.appendAtTail(1009);
-    list.appendAtTail(4);
-    list.appendAtTail(5);
-    list.appendAtHead(36);
-    list.appendAtTail(23);
-    list.appendAtTail(9);
-    list.appendAtHead(111);
-
-    list.printList();
-
-    System.out.println("\nDelete node in unsorted listed");
-    list.deleteNode(1009);
-    list.deleteNode(1);
-    list.deleteNode(5);
-    list.printList();
-
-    System.out.println("\nDelete first node");
-    list.deleteNode(111);
-    list.printList();
-
-    System.out.println("\nDelete second node");
-    list.deleteNode(110);
-    list.printList();
-
-    System.out.println("\nDelete last node");
-    list.deleteNode(9);
-    list.printList();
-
-    System.out.println("\nDelete node not present");
-    list.deleteNode(99999);
-
-    System.out.println("\nClear list.");
-    list.deleteList();
-    list.printList();
-
-    System.out.println("\nInsert node in sorted List");
-    list.insertSortedNode(27);
-    list.insertSortedNode(12);
-    list.insertSortedNode(1);
-    list.insertSortedNode(1009);
-    list.insertSortedNode(4);
-    list.insertSortedNode(5);
-    list.insertSortedNode(23);
-    list.insertSortedNode(9);
-    list.appendAtTail(27);
-
-    list.printList();
-
-    System.out.println("\nDelete node in sorted listed");
-    list.deleteNode(1009);
-    list.deleteNode(1);
-    list.deleteNode(5);
-
-    list.printList();
-
-  }
-
-}
-
-/*
- Insert node without sorting The list is empty First element... 111 36 110 27
- 12 1 1009 4 5 23 9
- 
- Delete node in unsorted listed 111 36 110 27 12 4 23 9
- 
- Delete first node 36 110 27 12 4 23 9
- 
- Delete second node 36 27 12 4 23 9
- 
- Delete last node 36 27 12 4 23
- 
- Delete node not present node not present in list
- 
- Clear list. The list is empty
- 
- Insert node in sorted List The list is empty
- 
- Insert as head : 27 1 4 5 9 12 23 27 1009 27
- 
- Delete node in sorted listed 4 9 12 23 27 27
- */

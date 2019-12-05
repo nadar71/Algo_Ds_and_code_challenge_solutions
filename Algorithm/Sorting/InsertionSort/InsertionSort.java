@@ -1,22 +1,25 @@
 class InsertionSort{
   private int[] data;
+  
+  public int[] sorting(int arr[]) 
+  { 
+      int length = arr.length; 
+      for (int i = 1; i < length; i++) { 
+          int tmp = arr[i]; 
+          int j = i - 1; 
 
-  public int[] sorting(int[] d){
-    data = d;
-    int length = data.length;  
+          // Move elements of arr[0..i-1] greater than arr[i], 
+          // 1 position ahead of their current position 
+          while (j >= 0 && arr[j] > tmp) { 
+              arr[j + 1] = arr[j]; 
+              j--; 
+          } 
+          arr[j + 1] = tmp; 
+      } 
+      
+      return arr;
+  }
 
-    for(int i=1; i<length; i++){
-      int tmp = data[i];
-      for(int j=i; j<0; j--){
-        if(data[j-1] > tmp){
-            data[j] = data[j-1];        // keep scanning down the array till reaching the right position for tmp
-        }else continue;       // return to the outer loop
-
-        data[j] = tmp;       // set tmp in right position, where now data[j-1] is not greater than it
-      }
-
-    }
-    return data;
-  }  
+  
   
 }

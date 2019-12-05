@@ -5,77 +5,7 @@
 
 */
 
-class Node {
-  int data;
-  Node next;
-
-  
-  public Node(int d) {
-    data = d;
-    next = null;
-  }
-
-}
-
-
-
-class LinkedList {
-  Node head = null;
-  int length;
-
-  public LinkedList() {
-    length = 0;
-  }
-
-  
-  public void printList() {
-    if (isEmpty()) return;    
-    Node ptr = head;
-
-    while (ptr != null) {
-      System.out.println(ptr.data);
-      ptr = ptr.next;
-    }
-    System.out.println();
-  }
-
-  public boolean isEmpty() {
-    if (head == null || length <=0) {
-      System.out.println("The list is empty");
-      return true;
-    }
-    else return false;
-  }
-
-
-  // time complexity O(n)
-  public void append(int d) {
-    Node node = new Node(d);
-
-    // empty list, first node
-    if (head == null) {
-      head = node;
-      length++;
-      return;
-    }
-
-    Node ptr = head; // cursor pointer
-
-    while (ptr.next != null)
-      ptr = ptr.next;
-    ptr.next = node;
-    length++;
-  }
-  
-  
-
-  // delete list quick
-  public void deleteListQuick() {
-    head    = null;
-    length  = 0;    
-  }
-
-  
+class LinkedListUtil extends LinkedList{
   
   // find list length . O(n)
   public int findLength(){
@@ -143,7 +73,7 @@ class LinkedList {
 public class Main {
 
   public static void main(String args[]) {
-    LinkedList list  = new LinkedList();
+  LinkedListUtil list  = new LinkedListUtil();
 
     System.out.println("\nInsert node in list");
     list.append(27);
@@ -198,3 +128,38 @@ public class Main {
   }
 
 }
+
+
+/*
+
+Insert node in list
+27 12 1009 4 23 9 19 24 39  
+
+Get Element at position 0 in list from start: 
+Result : 27
+
+Get Element at position 0 in list from end: 
+Result : 39
+
+2 steps : Get Element at position 0 in list from end: 
+Result : 39
+
+Get Element at position 5 in list from start: 
+Result : 23
+
+Get Element at position 5 in list from end: 
+Result : 23
+
+2 steps : Get Element at position 5 in list from end: 
+Result : 23
+
+Get Element at last position in list from start: 
+Result : 39
+
+Get Element at last position in list from end: 
+Result : 27
+
+2 steps : Get Element at position 9 in list from end: 
+Result : 27
+
+*/

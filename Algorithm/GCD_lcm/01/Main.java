@@ -8,7 +8,7 @@ public class Main{
 	public static int GCD(int m, int n){
 		if (m < n) return GCD(n,m);
 		if (m % n) return n;
-		return GCD(m, m % n);
+		return GCD(n, m % n);
 	}
 
 	public static int lcm(int m, int n){

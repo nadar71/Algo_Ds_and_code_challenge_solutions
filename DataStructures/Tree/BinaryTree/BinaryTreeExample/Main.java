@@ -123,7 +123,7 @@ class BinaryTree {
 
 
     // prints BFS traversal from a given source s 
-    void BFS(Node node) 
+    public void BFS(Node node) 
     { 
   
         // Create a queue for BFS 
@@ -137,6 +137,7 @@ class BinaryTree {
         { 
             // Dequeue a node from queue and print it 
             node = queue.poll(); 
+            node.visited = true;
             System.out.print(node.data+" "); 
   
             // Get all adjacent vertices of the dequeued vertex s 
@@ -212,7 +213,6 @@ public class Main{
         System.out.println("BFS traversal");
         tree.BFS(tree.root);
 
-        TreeUtil util = new TreeUtil();
-        util.displayTree(tree.root);
+        TreeUtil.displayTree(tree.root);
     } 
 }

@@ -10,10 +10,11 @@ class MyStack<T>{
 
       public Node(T data){
           this.data = data;
+          next = null;
       }
   }
 
-  private Node<T> top;
+  private Node<T> top = null;
   private int length = 0;
 
   public T pop(){

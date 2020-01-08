@@ -1,5 +1,5 @@
 
-class MyStack{
+public class MyStack{
 
     class Node{
         int data;
@@ -61,35 +61,3 @@ class MyStack{
 
 }
 
-
-
-public class Main{ 
-    public static void main(String[] args) 
-    { 
-        
-        MyStack ms = new MyStack();
-        System.out.println("The stack is empty? "+ms.isEmpty());
-        ms.push(20);
-        ms.push(10);
-        ms.push(13);
-
-        ms.print();
-
-        System.out.println("After inserting at bottom... ");
-        ms.insertAtBottom(25);
-        ms.print();
-
-        System.out.println("item at top : "+ms.peek());
-        System.out.println("Stack length : "+ms.getLength());
-        
-        System.out.println("Pop : "+ms.pop());
-        System.out.println("Pop : "+ms.pop());
-        System.out.println("Pop : "+ms.pop());
-        System.out.println("Pop : "+ms.pop());
-        ms.insertAtBottom(25);
-        ms.push(1);
-        ms.print();
-
-    } 
-
-}

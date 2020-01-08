@@ -7,21 +7,21 @@ import java.io.*;
 import java.util.*;
  
 class Graph {
- private int numVertexes;
- private LinkedList<Integer> vertexes[];
+ private int numVertices;
+ private LinkedList<Integer> vertices[];
 
  public Graph(int v) {
-  numVertexes = v;
-  vertexes = new LinkedList[v];
+  numVertices = v;
+  vertices = new LinkedList[v];
   // instantiate linked adjacency list for each node
   for (int i = 0; i < v; ++i)
-     vertexes[i] = new LinkedList();
+     vertices[i] = new LinkedList();
  }
 
 
  // Add a directed edge 
  void addDirectedEdge(int src, int dst) {
-  vertexes[src].add(dst); 
+  vertices[src].add(dst); 
  }
 
  // Add an edge 
@@ -36,7 +36,7 @@ class Graph {
   visited[currentVertex] = true;
   System.out.print(currentVertex + " ");
 
-  for( int i : vertexes[currentVertex]){
+  for( int i : vertices[currentVertex]){
     if (!visited[i]) search(i, visited);
   }
 
@@ -46,7 +46,7 @@ class Graph {
  // DFS traversal. It uses recursive DFSUtil() 
  void DFS(int startingVertex) {
   // set as false by default in java
-  boolean visited[] = new boolean[numVertexes];
+  boolean visited[] = new boolean[numVertices];
   for(boolean b : visited){
      b = false;
   }
@@ -55,7 +55,7 @@ class Graph {
 
 
  void deleteGraph(){
-  for(LinkedList<Integer> vertex : vertexes)
+  for(LinkedList<Integer> vertex : vertices)
     vertex = new LinkedList(); 
  }
 

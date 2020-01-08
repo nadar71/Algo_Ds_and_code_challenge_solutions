@@ -1,13 +1,13 @@
 /* 
 Built step by step 
-an WEIGHTED UNDIRECTED/DIRECTED GRAPH : no initial number of vertexes
+an WEIGHTED UNDIRECTED/DIRECTED GRAPH : no initial number of vertices
 */
 
 import java.util.ArrayList;
 
 
 class Graph {
- private int numVertexes = 0;
+ private int numVertices = 0;
 
  class AdjVertex{
     int src;
@@ -30,11 +30,11 @@ class Graph {
  }
 
 
- ArrayList<AdjList> vertexes;
+ ArrayList<AdjList> vertices;
 
  
  public Graph(){
-    vertexes = new ArrayList<>();
+    vertices = new ArrayList<>();
  }
 
 
@@ -46,8 +46,8 @@ class Graph {
     list = new AdjList();
     vertex.next = list.head;
     list.head = vertex;   // new vertex is all and  remain at the head of the list
-    vertexes.add(list);
-    numVertexes++;
+    vertices.add(list);
+    numVertices++;
   } else {
     vertex.next = list.head.next;
     list.head.next = vertex;
@@ -57,7 +57,7 @@ class Graph {
 
  
  public AdjList isNewVertex(int data){
-   for(AdjList list : vertexes ){
+   for(AdjList list : vertices ){
      if ( list != null && list.head != null && list.head.src == data ) {
        return list;
      }
@@ -76,11 +76,11 @@ class Graph {
 
 
  public void printGraph(){
-  if (vertexes.isEmpty())  {
+  if (vertices.isEmpty())  {
     System.out.print("Graph empty!");
     return;
   }
-  for(AdjList list : vertexes){
+  for(AdjList list : vertices){
     AdjVertex ptr = list.head;
     int count = 0;
     while(ptr != null){
@@ -97,19 +97,19 @@ class Graph {
  
  
  public void deleteGraph(){
-   // vertexes.clear();
-   for(AdjList list : vertexes) list.head = null;
-   numVertexes = 0;
+   // vertices.clear();
+   for(AdjList list : vertices) list.head = null;
+   numVertices = 0;
  }
  
  
  public boolean isEmpty(){
-   if (vertexes.isEmpty()) return true; 
+   if (vertices.isEmpty()) return true; 
    else return false;
  }
  
- public int getNumVertexes(){
-   return numVertexes;
+ public int getNumVertices(){
+   return numVertices;
  }
  
 
@@ -134,7 +134,7 @@ public class Main{
   g.addDirectedEdge(3, 4, 1);
 
   System.out.println("The graph is empty ? " + g.isEmpty());
-  System.out.println("Num of vertexes : " + g.getNumVertexes());
+  System.out.println("Num of vertices : " + g.getNumVertices());
   g.printGraph();
   
   System.out.println("Delete graph.");  
@@ -152,7 +152,7 @@ public class Main{
 
 
   
-  System.out.println("Num of vertexes : " + g.getNumVertexes());
+  System.out.println("Num of vertices : " + g.getNumVertices());
   g.printGraph();
   
   
@@ -165,7 +165,7 @@ public class Main{
 /*
 Create graph DIRECTED
 The graph is empty ? false
-Num of vertexes : 4
+Num of vertices : 4
 
 Vertex : 0 -> 1 -> 4
 
@@ -178,7 +178,7 @@ Vertex : 3 -> 4
 Delete graph.
 The graph is empty ? false
 Create graph UNDIRECTED
-Num of vertexes : 5
+Num of vertices : 5
 
 
 Vertex : 0 -> 1 -> 4

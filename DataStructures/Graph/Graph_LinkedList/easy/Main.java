@@ -6,34 +6,34 @@ UNDIRECTED/DIRECTED GRAPH OF INT
 import java.util.LinkedList;
 
 class Graph {
-   private int numVertexes;
-   private LinkedList<Integer> vertexes[];
+   private int numVertices;
+   private LinkedList<Integer> vertices[];
   
    public Graph(int v) {
-   numVertexes   = v;
-   vertexes = new LinkedList[v];
-   // instantiate linked vertexesacency list for each node
+   numVertices   = v;
+   vertices = new LinkedList[v];
+   // instantiate linked verticesacency list for each node
    for (int i = 0; i < v; ++i)
-      vertexes[i] = new LinkedList();
+      vertices[i] = new LinkedList();
  }
 
 
  // UNDIRECTED GRAPH : Add an edge and the reverse
  void addUNDirectedEdge(int v, int w) {
-    vertexes[v].add(w); 
-    vertexes[w].add(v);
+    vertices[v].add(w); 
+    vertices[w].add(v);
  }
 
  void addDirectedEdge(int v, int w) {
-    vertexes[v].add(w); 
+    vertices[v].add(w); 
  }
 
 
- // Print the vertexesacency list representation of graph 
+ // Print the vertices in the adjacency list representation of graph 
  void printGraph() {
-  for (int v = 0; v < numVertexes; v++) {
-     System.out.print("numVertexesertex " + v + " :");
-   for (Integer vertex: vertexes[v]) {
+  for (int v = 0; v < numVertices; v++) {
+     System.out.print("Vertex " + v + " :");
+   for (int vertex: vertices[v]) {
        System.out.print(" -> " + vertex);
    }
    System.out.println("\n");
@@ -42,15 +42,15 @@ class Graph {
 
 
  public void deleteGraph(){
-   for(int i=0; i<numVertexes; i++)
-    vertexes[i] = new LinkedList();
+   for(int i=0; i<numVertices; i++)
+    vertices[i] = new LinkedList();
  }
  
  
  public boolean isEmpty(){
    int i = 0;
-   while( i< numVertexes){
-     if  (vertexes[i] != null) return false;
+   while( i< numVertices){
+     if  (vertices[i] != null) return false;
      i++;
    }
    return true;

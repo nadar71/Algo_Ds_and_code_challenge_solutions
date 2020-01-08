@@ -4,7 +4,7 @@ WEIGHTED UNDIRECTED/DIRECTED GRAPH BFS traversal
 
 
 class Graph {
- private int numVertexes = 0;
+ private int numVertices = 0;
 
  class AdjVertex{
     int src;
@@ -27,21 +27,21 @@ class Graph {
  }
 
 
- AdjList[] vertexes;
+ AdjList[] vertices;
 
  
- public Graph(int numVertexes){
-  this.numVertexes = numVertexes;
-  vertexes = new AdjList[numVertexes];
-  for(int i=0; i<numVertexes; i++)
-    vertexes[i] = new AdjList();
+ public Graph(int numVertices){
+  this.numVertices = numVertices;
+  vertices = new AdjList[numVertices];
+  for(int i=0; i<numVertices; i++)
+    vertices[i] = new AdjList();
  }
 
 
  public void addDirectedEdge(int src, int dst, int cost){
   AdjVertex vertex = new AdjVertex(src, dst, cost);
-  vertex.next = vertexes[src].head;
-  vertexes[src].head = vertex;
+  vertex.next = vertices[src].head;
+  vertices[src].head = vertex;
  }
 
  
@@ -55,7 +55,7 @@ class Graph {
 
 public void BFS(int startingVertex){
   int curr;
-  boolean visited[] = new boolean[numVertexes];
+  boolean visited[] = new boolean[numVertices];
   for(boolean i : visited) i = false;
   visited[startingVertex] = true;
 
@@ -64,7 +64,7 @@ public void BFS(int startingVertex){
 
   while(queue.getLength() > 0 ){}
     curr = queue.remove();
-    AdjVertex ptr = vertexes[curr].head;
+    AdjVertex ptr = vertices[curr].head;
     System.out.println("Vertex : "+ curr);
     while(ptr != null){
       if (visited[ptr.dst] == false){
@@ -79,11 +79,11 @@ public void BFS(int startingVertex){
 
 
  public void printGraph(){
-  for(int i = 0; i < numVertexes; i++){
-    AdjVertex ptr = vertexes[i].head;
+  for(int i = 0; i < numVertices; i++){
+    AdjVertex ptr = vertices[i].head;
 
     while(ptr != null){
-      if (ptr == vertexes[i].head) System.out.print("\nVertex : "+ ptr.src + " -> "+ ptr.dst);
+      if (ptr == vertices[i].head) System.out.print("\nVertex : "+ ptr.src + " -> "+ ptr.dst);
       else System.out.print(" -> "+ptr.dst);
       ptr = ptr.next;
     }
@@ -94,15 +94,15 @@ public void BFS(int startingVertex){
  
  
  public void deleteGraph(){
-   for(int i=0; i<numVertexes; i++)
-    vertexes[i].head = null;
+   for(int i=0; i<numVertices; i++)
+    vertices[i].head = null;
  }
  
  
  public boolean isEmpty(){
    int i = 0;
-   while( i< numVertexes){
-     if  (vertexes[i].head != null) return false;
+   while( i< numVertices){
+     if  (vertices[i].head != null) return false;
      i++;
    }
    return true;

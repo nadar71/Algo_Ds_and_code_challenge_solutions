@@ -7,21 +7,21 @@ import java.io.*;
 import java.util.*;
  
 class Graph {
- private int numVertexes;
- private LinkedList<Integer> vertexes[];
+ private int numVertices;
+ private LinkedList<Integer> vertices[];
 
  public Graph(int v) {
-  numVertexes = v;
-  vertexes = new LinkedList[v];
+  numVertices = v;
+  vertices = new LinkedList[v];
   // instantiate linked adjacency list for each node
   for (int i = 0; i < v; ++i)
-     vertexes[i] = new LinkedList();
+     vertices[i] = new LinkedList();
  }
 
 
  // Add a directed edge 
  void addDirectedEdge(int src, int dst) {
-  vertexes[src].add(dst); 
+  vertices[src].add(dst); 
  }
 
  // Add an edge 
@@ -34,7 +34,7 @@ class Graph {
  // prints BFS traversal from a given source s 
  public void BFS(int s) 
  { 
-     boolean visited[] = new boolean[numVertexes]; 
+     boolean visited[] = new boolean[numVertices]; 
 
      LinkedList<Integer> queue = new LinkedList<Integer>();  
      visited[s]=true; 
@@ -44,7 +44,7 @@ class Graph {
      { 
          s = queue.poll(); 
          System.out.println("Vertex : " + s);  
-         for(int n : vertexes[s]){
+         for(int n : vertices[s]){
              if ( visited[n] == false) { 
                  visited[n] = true; 
                  queue.add(n); 
@@ -57,7 +57,7 @@ class Graph {
 
 
  void deleteGraph(){
-  for(LinkedList<Integer> vertex : vertexes)
+  for(LinkedList<Integer> vertex : vertices)
     vertex = new LinkedList(); 
  }
 

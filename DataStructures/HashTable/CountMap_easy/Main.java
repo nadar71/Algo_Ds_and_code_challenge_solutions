@@ -1,20 +1,20 @@
 // ------------------- CountMap
 
-class CountMap{
-  public HashTable hm;
+import java.util.HashMap;
+import java.util.Map;
 
-  public CountMap(){
-    hm            = new HashTable();
-  }
+class CountMap{
+  public HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
+  
 
 
  
   public void insert(int key){
-    if(hm.find(key)){      // if already in hm, increment value
-      int cnt = hm.getData(key);
-      hm.insert(key, ++cnt);
+    if(hm.containsKey(key)){      
+      int cnt = hm.get(key);
+      hm.put(key, ++cnt);
     } else { 
-      hm.insert(key, 1);   // else if new, set 1
+      hm.put(key, 1);   
     }
   }
 
@@ -22,36 +22,37 @@ class CountMap{
 
 
   public void remove(int key){
-    if(hm.find(key)){
-      if(hm.getData(key) == 1){
-        hm.remove(key);
-      }else{
-        decrementDataBy(key, 1);
-      }
-    }    
+    hm.remove(key);    
   }
 
 
 
-  public void decrementData(int key){
-    int cnt = hm.getData(key);
-    hm.insert(key, --cnt);
+  public boolean decrementData(int key){
+    if(hm.containsKey(key)){      
+      int cnt = hm.get(key);
+      hm.put(key, --cnt);
+      return true;
+    } else { 
+      return false;
+    }
 
   }
 
   public Integer getDataCount(int key){
-    if(hm.find(key)) return hm.getData(key);
+    if(hm.containsKey(key)) return hm.get(key);
     else return 0;
   }
 
   public boolean find(int key){
-    return hm.find(key);
+    return hm.containsKey(key);
   } 
 
 
 
   public void print(){
-    hm.print();
+    for(Map.Entry item: hm.entrySet()){
+       System.out.println("Key : "+item.getKey() + " Value : " + item.getValue() );
+    }
   }
 
  

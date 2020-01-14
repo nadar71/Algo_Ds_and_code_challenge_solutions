@@ -47,9 +47,7 @@ class Graph {
  void DFS(int startingVertex) {
   // set as false by default in java
   boolean visited[] = new boolean[numVertices];
-  for(boolean b : visited){
-     b = false;
-  }
+  for(boolean b : visited) b = false;
   search(startingVertex, visited);
  }
 

@@ -7,64 +7,51 @@ import java.util.ArrayList;
 
 
 class Graph {
- private int numVertices = 0;
+ int numVertices = 0;
+ ArrayList<Vertex> vertices = new ArrayList<Vertex>();
 
- class AdjVertex{
+  class Vertex{
     int src;
     int dst;
     int cost;
-    AdjVertex next;
+    Vertex next;
 
-    public AdjVertex(int src, int dst, int cost){
+    public Vertex(int src, int dst, int cost){
       this.src = src;
       this.dst = dst;
       this.cost = cost;
       next = null;          
     }
 
- }
+  }
 
 
- class AdjList{
-    AdjVertex head = null;
- }
 
-
- ArrayList<AdjList> vertices;
-
- 
- public Graph(){
-    vertices = new ArrayList<>();
- }
 
 
  public void addDirectedEdge(int src, int dst, int cost){
-  AdjVertex vertex = new AdjVertex(src, dst, cost);
-  AdjList list = isNewVertex(src);
+  Vertex ptr = isVertex(src); 
+  Vertex vertex = new Vertex(src, dst, cost);
 
-  if (list == null) {
-    list = new AdjList();
-    vertex.next = list.head;
-    list.head = vertex;   // new vertex is all and  remain at the head of the list
-    vertices.add(list);
-    numVertices++;
-  } else {
-    vertex.next = list.head.next;
-    list.head.next = vertex;
-  }
- }
- 
-
- 
- public AdjList isNewVertex(int data){
-   for(AdjList list : vertices ){
-     if ( list != null && list.head != null && list.head.src == data ) {
-       return list;
-     }
+  if (ptr == null){ 
+    vertices.add(vertex);
+    return;
+  } else{
+     while (ptr.next != null) ptr = ptr.next;
+     ptr.next = vertex;
    }
-   return null;
+   
  }
-
+ 
+ 
+ 
+ public Vertex isVertex(int src){
+  for(Vertex vertex: vertices)
+     if (vertex.src == src) return vertex;
+  
+  return null;
+ }
+ 
  
 
  public void addUNDirectedEdge(int src, int dst, int cost){
@@ -80,39 +67,38 @@ class Graph {
     System.out.print("Graph empty!");
     return;
   }
-  for(AdjList list : vertices){
-    AdjVertex ptr = list.head;
-    int count = 0;
-    while(ptr != null){
-      if (count == 0) System.out.print("\nVertex : "+ ptr.src + " -> "+ ptr.dst);
-      else System.out.print(" -> "+ptr.dst);
-      ptr = ptr.next;
-      count++;
-    }
-    System.out.println();
+  
 
-  }
-
+   for(Vertex vertex: vertices){
+       System.out.print("\nVertex : "+ vertex.src + " -> "+ vertex.dst);
+       Vertex ptr = vertex.next;
+       while(ptr != null){
+          System.out.print(" -> "+ptr.dst);
+          ptr = ptr.next;
+       }
+       System.out.println();
+   }
  }
+
+ 
  
  
  public void deleteGraph(){
-   // vertices.clear();
-   for(AdjList list : vertices) list.head = null;
-   numVertices = 0;
+   vertices.clear();
+   // for(Vertex vertex: vertices) vertex = null; // doesn't work !!
  }
  
  
+ 
+ public int getNumVertices(){
+   return vertices.size();
+ }
+ 
+
  public boolean isEmpty(){
    if (vertices.isEmpty()) return true; 
    else return false;
  }
- 
- public int getNumVertices(){
-   return numVertices;
- }
- 
-
 
 }
 
@@ -133,10 +119,12 @@ public class Main{
   g.addDirectedEdge(1, 4, 1);
   g.addDirectedEdge(3, 4, 1);
 
+
   System.out.println("The graph is empty ? " + g.isEmpty());
   System.out.println("Num of vertices : " + g.getNumVertices());
   g.printGraph();
   
+ 
   System.out.println("Delete graph.");  
   g.deleteGraph();
   System.out.println("The graph is empty ? " + g.isEmpty());
@@ -156,7 +144,6 @@ public class Main{
   g.printGraph();
   
   
-  
  }
 }
 
@@ -171,25 +158,25 @@ Vertex : 0 -> 1 -> 4
 
 Vertex : 2 -> 3
 
-Vertex : 1 -> 2 -> 4 -> 3
+Vertex : 1 -> 2 -> 3 -> 4
 
 Vertex : 3 -> 4
-
 Delete graph.
-The graph is empty ? false
+The graph is empty ? true
 Create graph UNDIRECTED
 Num of vertices : 5
 
-
 Vertex : 0 -> 1 -> 4
 
-Vertex : 1 -> 0 -> 4 -> 3 -> 2
+Vertex : 1 -> 0 -> 2 -> 3 -> 4
 
-Vertex : 4 -> 0 -> 3 -> 1
+Vertex : 4 -> 0 -> 1 -> 3
 
 Vertex : 2 -> 3 -> 1
 
-Vertex : 3 -> 2 -> 4 -> 1
+Vertex : 3 -> 2 -> 1 -> 4
+
+
 
 
 

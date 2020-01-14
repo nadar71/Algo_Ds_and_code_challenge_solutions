@@ -1,7 +1,8 @@
 /* 
-WEIGHTED UNDIRECTED/DIRECTED GRAPH DFS traversal
+WEIGHTED UNDIRECTED/DIRECTED GRAPH BFS traversal
 */
 
+import java.util.LinkedList;
 
 class Graph {
  int numVertices = 0;
@@ -43,8 +44,13 @@ class Graph {
   }
   else {
     Vertex ptr = vertices[src];
+    /*
+    vertex.next = ptr.next;
+    ptr.next = vertex;
+    */
     while (ptr.next != null) ptr = ptr.next;
     ptr.next = vertex;
+
   }
  }
 
@@ -56,29 +62,31 @@ class Graph {
 
 
 
-
-  public void search(int src, boolean[] visited){
-    visited[src] = true;
-    Vertex ptr = vertices[src];
-    System.out.println("Vertex : "+ src);
-    while(ptr != null){
-      if (visited[ptr.dst] == false){
-          visited[ptr.dst] = true;
-          search(ptr.dst, visited);
-      }
-      ptr = ptr.next;
-    }
-  }
-  
-  public void DFS(int startingVertex){
+  public void BFS(int startingVertex){
+    int curr;
     boolean visited[] = new boolean[numVertices];
     for(boolean i : visited) i = false;
-      
-    search(startingVertex,visited);
+    visited[startingVertex] = true;
+  
+    LinkedList<Integer> queue = new LinkedList<>();
+    queue.add(startingVertex);  
+
+    while(queue.size() > 0 ){
+      curr = queue.poll();
+      Vertex ptr = vertices[curr];
+      System.out.println("Vertex : "+ curr);
+      while(ptr != null){
+        if (!visited[ptr.dst]){
+            visited[ptr.dst] = true;
+            // System.out.println("Vertex : "+ ptr.dst);
+            queue.add(ptr.dst);
+        }
+        ptr = ptr.next;
+      }
+    }  
   }
-  
-  
-  
+
+
  public void printGraph(){
   for(int i = 0; i < numVertices; i++){
     Vertex ptr = vertices[i];
@@ -114,6 +122,9 @@ class Graph {
 }
 
 
+
+
+
 public class Main{
  public static void main(String args[]) {
   Graph g = new Graph(6);
@@ -131,9 +142,17 @@ public class Main{
   
   g.printGraph();
 
-  System.out.println("Following is Depth First Traversal " +
+  System.out.println("Following is Breadth First Traversal " +
    "(starting from vertex 0)");
-  g.DFS(0);
+  g.BFS(0);
+  
+  System.out.println("Following is Breadth First Traversal " +
+   "(starting from vertex 1)");
+  g.BFS(1);
+  
+  System.out.println("Following is Breadth First Traversal " +
+   "(starting from vertex 1)");
+  g.BFS(3);
 
   System.out.println("Delete graph. ");
   g.deleteGraph();
@@ -153,9 +172,18 @@ public class Main{
   g.printGraph();
 
 
-  System.out.println("Following is Depth First Traversal " +
+  System.out.println("Following is Breadth First Traversal " +
    "(starting from vertex 0)");
-  g.DFS(0);
+  g.BFS(0);
+  
+    
+  System.out.println("Following is Breadth First Traversal " +
+   "(starting from vertex 1)");
+  g.BFS(1);
+  
+  System.out.println("Following is Breadth First Traversal " +
+   "(starting from vertex 1)");
+  g.BFS(3);
 
 
 
@@ -177,12 +205,26 @@ Vertex : 3 -> 1 -> 2 -> 4
 Vertex : 4 -> 0 -> 1 -> 3
 
 Vertex : 5 -> 0
-Following is Depth First Traversal (starting from vertex 0)
+Following is Breadth First Traversal (starting from vertex 0)
 Vertex : 0
 Vertex : 1
+Vertex : 4
+Vertex : 5
+Vertex : 2
+Vertex : 3
+Following is Breadth First Traversal (starting from vertex 1)
+Vertex : 1
+Vertex : 0
 Vertex : 2
 Vertex : 3
 Vertex : 4
+Vertex : 5
+Following is Breadth First Traversal (starting from vertex 1)
+Vertex : 3
+Vertex : 1
+Vertex : 2
+Vertex : 4
+Vertex : 0
 Vertex : 5
 Delete graph. 
 Create directed graph. 
@@ -196,14 +238,23 @@ Vertex : 2 -> 1
 Vertex : 3 -> 2 -> 4
 
 
-Following is Depth First Traversal (starting from vertex 0)
+Following is Breadth First Traversal (starting from vertex 0)
 Vertex : 0
 Vertex : 1
+Vertex : 4
+Vertex : 5
+Vertex : 3
+Vertex : 2
+Following is Breadth First Traversal (starting from vertex 1)
+Vertex : 1
+Vertex : 3
+Vertex : 4
+Vertex : 2
+Following is Breadth First Traversal (starting from vertex 1)
 Vertex : 3
 Vertex : 2
 Vertex : 4
-Vertex : 5
-
+Vertex : 1
 
 
 

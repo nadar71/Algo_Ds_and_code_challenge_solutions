@@ -7,50 +7,48 @@ using DFS traversal
 
 
 class Graph {
- private int numVertexes = 0;
+ int numVertices = 0;
+ Vertex[] vertices;
 
- class AdjVertex{
+
+  class Vertex{
     int src;
     int dst;
     int cost;
-    AdjVertex next;
+    Vertex next;
 
-    public AdjVertex(int src, int dst, int cost){
+    public Vertex(int src, int dst, int cost){
       this.src = src;
       this.dst = dst;
       this.cost = cost;
       next = null;          
     }
+  }
+   
 
- }
-
-
- class AdjList{
-    AdjVertex head = null;
- }
-
-
- AdjList[] vertexes;
-
- 
- public Graph(int numVertexes){
-  this.numVertexes = numVertexes;
-  vertexes = new AdjList[numVertexes];
-  for(int i=0; i<numVertexes; i++)
-    vertexes[i] = new AdjList();
- }
+  public Graph(int numVertices){
+    this.numVertices = numVertices;
+    vertices = new Vertex[numVertices];
+  
+    for(int i=0; i<numVertices; i++)
+      vertices[i] = null;
+    
+  }
+  
 
 
  public void addDirectedEdge(int src, int dst, int cost){
-  AdjVertex vertex = new AdjVertex(src, dst, cost);
-  /*
-  if (vertexes[src].head == null){
-    vertexes[src].head = vertex;
+  Vertex vertex = new Vertex(src, dst, cost);
+
+  if (vertices[src] == null) {
+    vertices[src] = vertex;
     return;
   }
-  */
-  vertex.next = vertexes[src].head;
-  vertexes[src].head = vertex;
+  else {
+    Vertex ptr = vertices[src];
+    while (ptr.next != null) ptr = ptr.next;
+    ptr.next = vertex;
+  }
  }
 
  
@@ -61,40 +59,43 @@ class Graph {
 
 
 
-public void search(int src, boolean[] visited){
-  AdjVertex ptr = vertexes[src].head;
-  System.out.println("Vertex : "+ src);
-  while(ptr != null){
-    if (visited[ptr.dst] == false){
-        visited[ptr.dst] = true;
-        search(ptr.dst, visited);
+
+  public void search(int src, boolean[] visited){
+    visited[src] = true; 
+    Vertex ptr   = vertices[src];
+    System.out.println("Vertex : "+ src);
+    while(ptr != null){
+      if (!visited[ptr.dst]){
+          visited[ptr.dst] = true;
+          search(ptr.dst, visited);
+      }
+      ptr = ptr.next;
     }
-    ptr = ptr.next;
   }
-}
-
-public boolean[] DFS(int startingVertex){
-  boolean visited[] = new boolean[numVertexes];
-  for(boolean i : visited) i = false;
-  visited[startingVertex] = true;  
-  search(startingVertex,visited);
-  return visited;
-}
-
-
-
-public boolean isTherePath(int start, int goal){
-	boolean visited[] = DFS(start);
-	return visited[goal];
-}
-
-
+  
+  
+  public boolean[] DFS(int startingVertex){
+    boolean visited[] = new boolean[numVertices];
+    for(boolean i : visited) i = false;
+    search(startingVertex,visited);
+    return visited;
+  }
+  
+  
+  
+  public boolean isTherePath(int start, int goal){
+    boolean visited[] = DFS(start);
+    return visited[goal];
+  }
+  
+  
+  
  public void printGraph(){
-  for(int i = 0; i < numVertexes; i++){
-    AdjVertex ptr = vertexes[i].head;
+  for(int i = 0; i < numVertices; i++){
+    Vertex ptr = vertices[i];
 
     while(ptr != null){
-      if (ptr == vertexes[i].head) System.out.print("\nVertex : "+ ptr.src + " -> "+ ptr.dst);
+      if (ptr == vertices[i]) System.out.print("\nVertex : "+ ptr.src + " -> "+ ptr.dst);
       else System.out.print(" -> "+ptr.dst);
       ptr = ptr.next;
     }
@@ -105,15 +106,15 @@ public boolean isTherePath(int start, int goal){
  
  
  public void deleteGraph(){
-   for(int i=0; i<numVertexes; i++)
-    vertexes[i].head = null;
+   for(int i=0; i<numVertices; i++)
+    vertices[i] = null;
  }
  
  
  public boolean isEmpty(){
    int i = 0;
-   while( i< numVertexes){
-     if  (vertexes[i].head != null) return false;
+   while( i< numVertices){
+     if  (vertices[i] != null) return false;
      i++;
    }
    return true;
@@ -184,63 +185,63 @@ public class Main{
 
 Create undirected graph. 
 
-Vertex : 0 -> 5 -> 4 -> 1
+Vertex : 0 -> 1 -> 4 -> 5
 
-Vertex : 1 -> 4 -> 3 -> 2 -> 0
+Vertex : 1 -> 0 -> 2 -> 3 -> 4
 
-Vertex : 2 -> 3 -> 1
+Vertex : 2 -> 1 -> 3
 
-Vertex : 3 -> 4 -> 2 -> 1
+Vertex : 3 -> 1 -> 2 -> 4
 
-Vertex : 4 -> 3 -> 1 -> 0
+Vertex : 4 -> 0 -> 1 -> 3
 
 Vertex : 5 -> 0
 Vertex : 1
+Vertex : 0
 Vertex : 4
 Vertex : 3
 Vertex : 2
-Vertex : 0
 Vertex : 5
 I there a path between 1 and 3 ? true
 Vertex : 4
-Vertex : 3
-Vertex : 2
-Vertex : 1
 Vertex : 0
+Vertex : 1
+Vertex : 2
+Vertex : 3
 Vertex : 5
 I there a path between 4 and 2 ? true
 Vertex : 0
-Vertex : 5
-Vertex : 4
-Vertex : 3
-Vertex : 2
 Vertex : 1
+Vertex : 2
+Vertex : 3
+Vertex : 4
+Vertex : 5
 I there a path between 0 and 2 ? true
 Delete graph. 
 Create directed graph. 
 
-Vertex : 0 -> 5 -> 4 -> 1
+Vertex : 0 -> 1 -> 4 -> 5
 
-Vertex : 1 -> 4 -> 3
+Vertex : 1 -> 3 -> 4
 
 Vertex : 2 -> 1
 
-Vertex : 3 -> 4 -> 2
+Vertex : 3 -> 2 -> 4
 
 
 Vertex : 1
-Vertex : 4
 Vertex : 3
 Vertex : 2
+Vertex : 4
 I there a path between 1 and 3 ? true
 Vertex : 4
 I there a path between 4 and 2 ? false
 Vertex : 0
-Vertex : 5
-Vertex : 4
 Vertex : 1
 Vertex : 3
 Vertex : 2
+Vertex : 4
+Vertex : 5
 I there a path between 0 and 2 ? true
 
 

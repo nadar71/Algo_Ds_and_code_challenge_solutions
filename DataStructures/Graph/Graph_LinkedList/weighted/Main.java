@@ -4,50 +4,48 @@ WEIGHTED UNDIRECTED/DIRECTED GRAPH
 
 
 class Graph {
- private int numVertices = 0;
+ int numVertices = 0;
+ Vertex[] vertices;
 
- class AdjVertex{
+
+  class Vertex{
     int src;
     int dst;
     int cost;
-    AdjVertex next;
+    Vertex next;
 
-    public AdjVertex(int src, int dst, int cost){
+    public Vertex(int src, int dst, int cost){
       this.src = src;
       this.dst = dst;
       this.cost = cost;
       next = null;          
     }
+  }
+   
 
- }
-
-
- class AdjList{
-    AdjVertex head = null;
- }
-
-
- AdjList[] vertices;
-
- 
- public Graph(int numVertices){
-  this.numVertices = numVertices;
-  vertices = new AdjList[numVertices];
-  for(int i=0; i<numVertices; i++)
-    vertices[i] = new AdjList();
- }
+  public Graph(int numVertices){
+    this.numVertices = numVertices;
+    vertices = new Vertex[numVertices];
+  
+    for(int i=0; i<numVertices; i++)
+      vertices[i] = null;
+    
+  }
+  
 
 
  public void addDirectedEdge(int src, int dst, int cost){
-  AdjVertex vertex = new AdjVertex(src, dst, cost);
-  /*
-  if (vertices[src].head == null){
-    vertices[src].head = vertex;
+  Vertex vertex = new Vertex(src, dst, cost);
+
+  if (vertices[src] == null) {
+    vertices[src] = vertex;
     return;
   }
-  */
-  vertex.next = vertices[src].head;
-  vertices[src].head = vertex;
+  else {
+    Vertex ptr = vertices[src];
+    while (ptr.next != null) ptr = ptr.next;
+    ptr.next = vertex;
+  }
  }
 
  
@@ -61,10 +59,10 @@ class Graph {
 
  public void printGraph(){
   for(int i = 0; i < numVertices; i++){
-    AdjVertex ptr = vertices[i].head;
+    Vertex ptr = vertices[i];
 
     while(ptr != null){
-      if (ptr == vertices[i].head) System.out.print("\nVertex : "+ ptr.src + " -> "+ ptr.dst);
+      if (ptr == vertices[i]) System.out.print("\nVertex : "+ ptr.src + " -> "+ ptr.dst);
       else System.out.print(" -> "+ptr.dst);
       ptr = ptr.next;
     }
@@ -76,14 +74,14 @@ class Graph {
  
  public void deleteGraph(){
    for(int i=0; i<numVertices; i++)
-    vertices[i].head = null;
+    vertices[i] = null;
  }
  
  
  public boolean isEmpty(){
    int i = 0;
    while( i< numVertices){
-     if  (vertices[i].head != null) return false;
+     if  (vertices[i] != null) return false;
      i++;
    }
    return true;
@@ -131,3 +129,29 @@ public class Main{
   
  }
 }
+
+/*
+Create graph DIRECTED                                                                                                                 
+                                                                                                                                      
+Vertex : 0 -> 1 -> 4                                                                                                                  
+                                                                                                                                      
+Vertex : 1 -> 2 -> 3 -> 4                                                                                                             
+                                                                                                                                      
+Vertex : 2 -> 3                                                                                                                       
+                                                                                                                                      
+Vertex : 3 -> 4                                                                                                                       
+                                                                                                                                      
+Delete graph.                                                                                                                         
+The graph is empty ? true                                                                                                             
+Create graph UNDIRECTED                                                                                                               
+                                                                                                                                      
+Vertex : 0 -> 1 -> 4                                                                                                                  
+                                                                                                                                      
+Vertex : 1 -> 0 -> 2 -> 3 -> 4                                                                                                        
+                                                                                                                                      
+Vertex : 2 -> 1 -> 3                                                                                                                  
+                                                                                                                                      
+Vertex : 3 -> 1 -> 2 -> 4                                                                                                             
+                                                                                                                                      
+Vertex : 4 -> 0 -> 1 -> 3 
+*/

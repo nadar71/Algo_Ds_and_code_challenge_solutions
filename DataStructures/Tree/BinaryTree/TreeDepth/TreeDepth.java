@@ -9,8 +9,8 @@ public class TreeDepth extends BinaryTree {
 		if (root == null)
 			return 0;
 		else {
-			int lDepth = treeDepth(root.left);
-			int rDepth = treeDepth(root.right);
+			int lDepth = treeDepthCalc(root.left);
+			int rDepth = treeDepthCalc(root.right);
 
 			// check the first of the children which change level
 			if (lDepth > rDepth)

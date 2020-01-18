@@ -136,18 +136,18 @@ class BinaryTree {
         while (queue.size() != 0) 
         { 
             // Dequeue a node from queue and print it 
-            node = queue.poll(); 
-            node.visited = true;
-            System.out.print(node.data+" "); 
+            Node n = queue.poll(); 
+            n.visited = true;
+            System.out.print(n.data+" "); 
   
             // Get all adjacent vertices of the dequeued vertex s 
             // If a adjacent has not been visited, then mark it visited and enqueue it                       
-            if ( (node.left  != null) && (!node.left.visited)  ) {
-              queue.add(node.left);              
+            if ( (n.left  != null) && (!n.left.visited)  ) {
+              queue.add(n.left);              
             }
 
-            if ( (node.right != null) && (!node.right.visited) ) 
-            queue.add(node.right); 
+            if ( (n.right != null) && (!n.right.visited) ) 
+            queue.add(n.right); 
 
         }
     } 

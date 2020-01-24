@@ -1,3 +1,7 @@
+/*
+Best case when the pivot is at right; worste at middlle and wthe worst at left
+*/
+
 class QuickSort{ 
     int[] arr;
     
@@ -24,7 +28,7 @@ class QuickSort{
     }
 
 
-    public int[] sorting(int[] arr){
+    public int[] quickSort(int[] arr){
       this.arr = arr;
       sort(0, arr.length-1);
       return arr;

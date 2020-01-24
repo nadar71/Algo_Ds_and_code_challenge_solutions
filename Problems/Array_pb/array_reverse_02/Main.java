@@ -10,6 +10,19 @@ public class Main{
       }
       printArr(arr);
     }
+
+    // the same in other form
+    public void reverseArray_02(int[] arr, int start, int end){
+      while(start < end) {
+        int tmp = arr[i];
+        arr[i]  = arr[j];
+        arr[j]  = tmp;
+        start++;
+        end--;
+      }
+      printArr(arr);
+    }
+
     
     public void printArr(int[] arr){
       for(int i : arr){

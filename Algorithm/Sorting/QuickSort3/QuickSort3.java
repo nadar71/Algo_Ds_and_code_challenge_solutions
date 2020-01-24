@@ -1,4 +1,6 @@
-// NB : works only with worse case pivot at left (lower index), with others fails ?
+/*
+Best case when the pivot is at left; worste at middlle and wthe worst at right
+*/
 public class QuickSort3{ 
     int[] arr;
     
@@ -9,15 +11,15 @@ public class QuickSort3{
      }
     
     
-    public int[] sorting(int[] arr){
-        this.arr = arr;
+    public int[] quickSort(int[] arr){
+      this.arr = arr;
       int size = arr.length;
-      quicksortExecute(0,size-1);
+      sort(0,size-1);
       return arr;
     }
     
 
-    public void quicksortExecute(int lower, int upper){
+    public void sort(int lower, int upper){
       if (upper < lower) return;
 
       int pivot = arr[lower];
@@ -40,8 +42,8 @@ public class QuickSort3{
       }
       // put the pivot in upper position
       swap(upper,start);
-      quicksortExecute(start, upper-1);
-      quicksortExecute(upper+1, stop);
+      sort(start, upper-1);
+      sort(upper+1, stop);
     }
 
 

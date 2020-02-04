@@ -107,6 +107,7 @@ class LinkedList {
   }
   
   
+  /*
   // check intersection of this list with another
   public Node getIntersection(LinkedList list2){
     // in this case I use length properties; otherwise must use getLength
@@ -123,18 +124,20 @@ class LinkedList {
         ptr2 = ptr2.next;
         diff--;
       }
+      System.out.println("l1>l2 : Debug : node at which they at same distance : "+ptr2.data);
     } else if (l1<l2){
       int diff = l2-l1;
       while(diff>0){
         ptr = ptr.next;
         diff--;
       }
+      System.out.println("l1<l2 : Debug : node at which they at same distance : "+ptr.data);
     }
     
-    while(ptr.next != null && ptr2.next != null){
-      if(ptr.next == ptr2.next) {
+    while(ptr != null && ptr2 != null){
+      if(ptr == ptr2) {
          intersectFlag = true;
-         return ptr.next;
+         return ptr;
        }
        ptr  = ptr.next;
        ptr2 = ptr2.next;
@@ -142,7 +145,39 @@ class LinkedList {
     intersectFlag = false;
     return null;
   }
+  */
   
+  
+  
+  // check intersection of this list with another
+  public Node getIntersection(LinkedList list2){
+      int l1 = this.length;
+      int l2 = list2.length;
+      int diff = 0;
+      Node ptr1 = this.head;
+      Node ptr2 = list2.head;
+      
+      if (l1 < l2){
+          Node tmp = ptr1;
+          ptr1      = ptr2;
+          ptr2     = tmp;
+          diff = l2 -l1;
+      } else diff = l1 -l2;
+      
+      while(diff > 0) {
+          ptr1 = ptr1.next;
+          diff--;
+      }
+      
+      while( ptr1 != ptr2){
+          ptr1 = ptr1.next;
+          ptr2 = ptr2.next;
+      }
+      
+      if (ptr1 != null ) intersectFlag = true;
+      
+      return ptr1;
+  }
   
   
  
@@ -205,3 +240,67 @@ public class Main {
   }
 
 }
+
+/*
+Create 1st list different part
+27
+12
+1009
+
+Create 2nd list different part
+4
+23
+9
+19
+24
+39
+
+Create 3rd list, common part of the 2 lists
+100
+230
+900
+1900
+2400
+3900
+
+Connect the 1+3 lists
+27
+12
+1009
+100
+230
+900
+1900
+2400
+3900
+
+Connect the 2+3 lists
+4
+23
+9
+19
+24
+39
+100
+230
+900
+1900
+2400
+3900
+
+Check fo intersection bewtween list 1 and 2
+Result : true and the node is : 100
+27
+12
+1009
+100
+230
+900
+1900
+2400
+3900
+
+
+
+
+*/

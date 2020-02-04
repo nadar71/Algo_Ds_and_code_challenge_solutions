@@ -10,7 +10,7 @@ public class Main{
 	public static void printAnagram(String str){
 		String[] letters = str.split("");	
 		
-		printArray(letters);
+		// printArray(letters);
 
 		int len = str.length();
 

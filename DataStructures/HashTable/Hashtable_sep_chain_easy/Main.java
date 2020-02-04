@@ -30,7 +30,9 @@ class HashTable{
 
 
 
-  // Get the hash code for the key. 
+  // Get the hash code for the key using Object.hashcode().
+  // Could be used other way : if as example the entry key was a phone number associated to employee
+  // I can use the last 3 number as hashcode, and then hashtable index would be taken from this in getIndex.
   public int getHashCode(Integer key){
     return key.hashCode();  
   }
@@ -67,6 +69,8 @@ class HashTable{
       if (n.key == key) n.data = data;
       return;
     }
+
+    // Collision but data not present
     head.add(node);
     
     
@@ -82,18 +86,17 @@ class HashTable{
     // not present
     if (head == null) return false;
 
-    int count = 0;
     for(Node n: head){
       if (n.key == key){
-        head.remove(count);
+        head.remove(n);
         return true;
       }
-      count++;
     }
 
     return false;
 
   }
+
 
 
 

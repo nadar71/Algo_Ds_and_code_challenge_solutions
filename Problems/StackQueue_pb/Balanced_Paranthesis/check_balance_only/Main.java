@@ -2,6 +2,7 @@ package balancedParentesis;
 
 
 /*
+Check if the brackets are balanced in an expression, otherwise output false
 - scan expression (a string, an array of character)
 - push in stack if it is {[(
 - pop from stack when found )]} : the popped out is not ([{, then error 

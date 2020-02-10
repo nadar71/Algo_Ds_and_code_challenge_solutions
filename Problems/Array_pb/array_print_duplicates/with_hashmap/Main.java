@@ -1,3 +1,6 @@
+/*
+Print the duplicates in unsorted array
+*/
 
 
 import java.util.HashMap;

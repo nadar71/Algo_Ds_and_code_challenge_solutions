@@ -18,9 +18,9 @@ public class Main{
 
     // the missed number are the idx for the bit remained to 0 (=clear bit)
     int idxLastMissedNum = 0;
-    for(int i=0;i<missNumsCount;i++){
+    for(int i = 0; i < missNumsCount; i++){
       idxLastMissedNum = bset.nextClearBit(idxLastMissedNum);
-      System.out.println("A Missed number is : "+idxLastMissedNum);
+      System.out.println("A Missed number is : " + idxLastMissedNum);
       idxLastMissedNum++;
     }
   }

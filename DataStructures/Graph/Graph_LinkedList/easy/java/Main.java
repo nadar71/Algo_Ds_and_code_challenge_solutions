@@ -6,16 +6,16 @@ UNDIRECTED/DIRECTED GRAPH OF INT
 import java.util.LinkedList;
 
 class Graph {
-   private int numVertices;
-   private LinkedList<Integer> vertices[];
+   int numVertices;
+   LinkedList<Integer> vertices[];
   
    public Graph(int v) {
-   numVertices   = v;
-   vertices = new LinkedList[v];
-   // instantiate linked verticesacency list for each node
-   for (int i = 0; i < v; ++i)
-      vertices[i] = new LinkedList();
- }
+     numVertices   = v;
+     vertices = new LinkedList[v];
+     // instantiate linked verticesacency list for each node
+     for (int i = 0; i < v; ++i)
+        vertices[i] = new LinkedList();
+   }
 
 
  // UNDIRECTED GRAPH : Add an edge and the reverse

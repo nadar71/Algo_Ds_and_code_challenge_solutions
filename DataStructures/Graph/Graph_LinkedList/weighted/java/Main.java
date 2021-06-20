@@ -43,7 +43,7 @@ class Graph {
   }
   else {
     Vertex ptr = vertices[src];
-    while (ptr.next != null) ptr = ptr.next;
+    while (ptr.next != null) ptr = ptr.next;  
     ptr.next = vertex;
   }
  }

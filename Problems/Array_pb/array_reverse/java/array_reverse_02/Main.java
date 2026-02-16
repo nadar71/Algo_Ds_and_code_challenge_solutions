@@ -1,5 +1,7 @@
 
-// t: O(n)
+// t: O(n) s: O(1)
+// 2 pointer solution: Exchange the first middle items of the array with the last middle items of the array , using 2 pointer, stop when they intersect
+
 public class Main{  
 
     public void reverseArray(int[] arr, int start, int end){

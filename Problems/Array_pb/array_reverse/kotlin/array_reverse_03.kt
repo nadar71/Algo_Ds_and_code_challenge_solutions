@@ -1,8 +1,10 @@
 
-// using kotlin
+// kotlin
+// 1 and 2  pointer solution: t: O(n), s: O(1)
 
 fun main(){
     val test = arrayOf(1,2,3,4,5)
+    printArray(test)
     invArray_01(test)
     printArray(test)
     invArray_02(test)
@@ -10,24 +12,24 @@ fun main(){
 }
 
 
+// 1 pointer solution: t: O(n), s: O(1)
 fun invArray_01(array: Array<Int>){
-    val size = array.size      
-    val midIdx = size%2 as Int 
-    var tmp = array[0]         
-    for(i in array.indices){   
-        array[i] = array[size-1-i] 
-        array[size-1-i] = tmp      
-        if (i == midIdx ) break    
-        tmp = array[i+1]
+    val size   = array.size      
+    val middle = size/2   
+             
+    for(i in 0 until middle){  
+        var tmp         = array[size-1-i]
+        array[size-1-i] = array[i]
+        array[i]        = tmp       
     }        
 }
 
-
+// 2 pointer solution: t: O(n), s: O(1)
 fun invArray_02(array: Array<Int>){
     var start = 0
     var end   = array.size-1
              
-    while(start<end){  
+    while(start < end){  
         val tmp = array[start]
         array[start] = array[end]
         array[end] = tmp
@@ -39,6 +41,10 @@ fun invArray_02(array: Array<Int>){
 
 inline fun <reified T> printArray(array: Array<T>){
     for(item in array){
-        println(" $item ")
-    }    
+        print(" $item ")
+    }
+    println()
 }
+
+
+

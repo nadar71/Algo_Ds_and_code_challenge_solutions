@@ -1,4 +1,4 @@
-// another 2 pointer solution
+// another 2 pointer solution: t: O(n), s: O(1)
 
 fun main() {
     val array = arrayOf(1,2,3,4,5,6)

@@ -1,8 +1,4 @@
-/*
-t:O(2^N)
-s:O(N)
-
-*/
+// t:O(2^N) s:O(N)
 
 public class Main{
 	public static int fibonacci(int n){

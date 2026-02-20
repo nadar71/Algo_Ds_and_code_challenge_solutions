@@ -1,4 +1,5 @@
 // t: O(N) s: O(1)
+
 fun main(){  
     println(fatt_01(5))
     println(fatt_02(5))

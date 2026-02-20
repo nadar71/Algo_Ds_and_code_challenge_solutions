@@ -1,7 +1,6 @@
 /*
-Compute fibonacci sequence till n
-t : O(2^N)
-s : O(1)
+Compute fibonacci sequence till n:
+t : O(N) s : O(1)
 */
 public class Main{
 	public static int fibonacci(int n){

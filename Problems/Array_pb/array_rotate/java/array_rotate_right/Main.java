@@ -1,7 +1,6 @@
 /*
 Rotate right
-
-t: O(n)
+t: O(n) s: O(1)
 */
 
 
@@ -10,7 +9,7 @@ public class Main{
     public void rotateArr(int[] arr, int k){
         int length = arr.length;
         if ( length == 0 || k == length) return;
-        if (k > length) k =  k - length;
+        if (k > length) k =  k % length;
         
         reverseArray(arr, 0, length-1-k);
         reverseArray(arr, length-k, length-1);

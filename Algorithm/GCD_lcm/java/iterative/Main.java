@@ -1,19 +1,24 @@
-/*
-GCD recursively
-lcm with euclide's formula
-*/
+
+// GCD iterative, lcm with euclide's formula 
+// t: O(N) s: O(1)
+
 
 public class Main{
 
 	public static int GCD(int m, int n){
-		if (m < n) return GCD(n,m);
-		if (m % n) return n;
-		return GCD(n, m % n);
+		while( m != n){
+			if (m > n) 
+				m = m - n;
+			else 
+				n = n - m;
+		}
+		return n;
 	}
-
-	public static int lcm(int m, int n){
+    
+    public static int lcm(int m, int n){
 		return (m*n/GCD(m,n));
 	}
+
 
 	public static void main(String[] args){
 		System.out.println("GCD : "+GCD(18,12));

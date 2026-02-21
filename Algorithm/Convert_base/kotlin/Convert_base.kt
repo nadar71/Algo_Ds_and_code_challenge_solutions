@@ -1,4 +1,6 @@
 
+// t:O(N) s: O(N)
+
 class Convert_base{
     val mask: String = "0123456789ABCDEF";
     val conversion: ArrayList<Char> = ArrayList<Char>()

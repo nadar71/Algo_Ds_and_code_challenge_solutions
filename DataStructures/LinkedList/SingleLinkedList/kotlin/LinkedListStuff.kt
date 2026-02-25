@@ -36,7 +36,7 @@ class LinkedList<T>(
         else head = node
     }
     
-    // t: O(N)
+    // t: O(N) worst case
     fun deleteNode(node: ListNode<T>?): Boolean{
         if (node == null ) {println("Node null"); return false}
         if (head == null ) {println("List empty"); return false}

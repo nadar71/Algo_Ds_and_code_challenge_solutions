@@ -1,6 +1,4 @@
-/*
-Reverse list iteratively and recursively
-*/
+// Reverse list iteratively and recursively
 
 
   
@@ -8,6 +6,7 @@ class LinkedListUtil extends LinkedList{
 
   // invert linked list LINEARLY
   // header --> a --> b --> c --> null
+  // ITERATIVE: t: O(N), s: O(1)
   public void reverseList(){
     Node curr = head;
     Node prev = null;
@@ -25,7 +24,7 @@ class LinkedListUtil extends LinkedList{
     head = prev;
   }
   
-  // invert linked list RECURSIVELY
+  // RECURSIVELY t: O(N), s: O(N)
   public void reverseListRec(){
     head = reverseUtil(head, null);
   }

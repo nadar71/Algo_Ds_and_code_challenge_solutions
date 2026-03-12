@@ -1,4 +1,4 @@
-// Given an array of integers sorted in ascending order and a target value, 
+// Given an array of integers NOT sorted and a target value, 
 // return the indexes of any pair of numbers in the array that sum to the target. 
 // The order of the indexes in the result doesn't matter. 
 // If no pair is found, return an empty array.
@@ -11,9 +11,9 @@
 fun main() {
     // val target = -7
     val target = 7
-    val result = ArrayList<Int?>()
+    val result = ArrayList<Int>()
     
-    val hashmap = hashMapOf<Int,Int?>()
+    val hashmap = hashMapOf<Int,Int>()
     // val list = mutableListOf<Int>()        // -> []
     val list = mutableListOf(4,-3,-1,7,3,11,8)   // -> [4, 0, 6, 2]
     // val list = mutableListOf(7)            // -> []

@@ -13,36 +13,34 @@ fun main() {
     // val target = -7
     val target = 7
     val result = ArrayList<Int?>()
-    
     val hashmap = hashMapOf<Int,Int?>()
-    // val list = mutableListOf<Int>()        // -> []
-    val list = mutableListOf(4,-3,-1,7,3,11,8)   // -> [4, 0, 2, 6]
-    // val list = mutableListOf(7)            // -> []
-    // val list = mutableListOf(3,4)        // -> [0, 1]
-    // val list = mutableListOf(4,3)        // -> [0, 1]
-    // val list = mutableListOf(3,5)        // -> []
-    // val list = mutableListOf(5,3)        // -> []
-    // val list = mutableListOf(3,4,3)        // -> [0, 2]
-    // val list = mutableListOf(3,4,4)        // -> [0, 2]
-    // val list = mutableListOf(3,-1,4)       // -> [0, 2]
-    // val list = mutableListOf(-4,-1,2,-3,)    // target -7 -> [3, 0]
+    
+    // val arr = arrayOf<Int>()        // -> []
+    val arr = arrayOf(4,-3,-1,7,3,11,8)   // -> [4, 0, 2, 6]
+    // val arr = arrayOf(7)            // -> []
+    // val arr = arrayOf(3,4)        // -> [0, 1]
+    // val arr = arrayOf(4,3)        // -> [0, 1]
+    // val arr = arrayOf(3,5)        // -> []
+    // val arr = arrayOf(5,3)        // -> []
+    // val arr = arrayOf(3,4,3)        // -> [0, 2]
+    // val arr = arrayOf(3,4,4)        // -> [0, 2]
+    // val arr = arrayOf(3,-1,4)       // -> [0, 2]
+    // val arr = arrayOf(-4,-1,2,-3,)    // target -7 -> [3, 0]
 
-    for((index,value) in list.withIndex()){
-      hashmap.put(value, index)    
+    for(i in 0..arr.size - 1 ){
+      hashmap.put(arr[i], i)    
     }
     
     
     for((key, value) in hashmap){
-      val num = key 
-      val key1 = target - num
-      val value1 = hashmap[key1]
+      val targetKey = target - key
   
-      if (value != null && value1 != null ) {
+      if (value != null && hashmap[targetKey] != null ) {
           result.add(value)
-          result.add(value1)
-          hashmap.put(key1, null)
+          result.add(hashmap[targetKey])
+          hashmap.put(targetKey, null) // delete used value to avoid duplicated in revers order
       }       
     }
     println(result)
     
-}
+} 

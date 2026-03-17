@@ -9,39 +9,42 @@ fun main(){
     val target = 7
     
     // test case
-    // val list = mutableListOf<Int>()      // -> []
-    // val list = mutableListOf(-3,-1,3,4,7,8,11)   // -> [1, 5]
-    // val list = mutableListOf(7)        // -> []
-    // val list = mutableListOf(3,4)      // -> [0, 1]
-    // val list = mutableListOf(3,5)      // -> []
-    // val list = mutableListOf(3,3,4)      // -> [0, 2]
-    // val list = mutableListOf(-1,3,4)     // -> [1, 2]
-    val list = mutableListOf(-4,-3,-1)    // target = -7 -> [0, 1]
+    // val list = arrayOf<Int>()             // -> []
+    val list = arrayOf(-3,-1,3,4,7,8,11)     // -> [1, 5, 2, 3]
+    // val list = arrayOf(7)                 // -> []
+    // val list = arrayOf(1,1,1,1)           // -> []
+    // val list = arrayOf(3,4)               // -> [0, 1]
+    // val list = arrayOf(3,5)               // -> []
+    // val list = arrayOf(3,3,4)             // -> [0, 2]
+    // val list = arrayOf(-1,3,4)            // -> [1, 2]
+    // val list = arrayOf(-4,-3,-1)          // target = -7 -> [0, 1]
     
     pairSumToTarget(list, target)
 }
 
 
 // 2 pointers, sorted array
-fun pairSumToTarget(list: List<Int>, target: Int) {
-    val result = ArrayList<Int?>() // store the items pair summing to target or empty array
+fun pairSumToTarget(array: Array<Int>, target: Int): ArrayList<Int>? {
+    val result = ArrayList<Int>() // store the items pair summing to target or empty array
     var start = 0
-    var end   = list.size-1
+    var end   = array.size-1
     
-    if (end <= 0 ) return println(result)
+    if (end <= 0 ) { println(result); return null }
     
-    while(start != end){
-        val sum = list[start] + list[end]
+    while(start < end){
+        val test = array[start] + array[end]
         when  {
-            sum < target -> start++
-            sum > target -> end--
+            test < target -> start++
+            test > target -> end--
             else -> {
                 result.add(start)
-                result.add(end)
-                break
+                result.add(end) 
+                start++
+                end--
             } 
         }
     }    
     println(result)
+    return result
 }
 

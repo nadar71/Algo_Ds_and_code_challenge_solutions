@@ -14,21 +14,21 @@ fun main() {
     val result = ArrayList<Int>()
     
     val hashmap = hashMapOf<Int,Int>()
-    // val list = mutableListOf<Int>()        // -> []
-    val list = mutableListOf(4,-3,-1,7,3,11,8)   // -> [4, 0, 6, 2]
-    // val list = mutableListOf(7)            // -> []
-    // val list = mutableListOf(3,4)        // -> [1, 0]
-    // val list = mutableListOf(4,3)        // -> [1, 0]
-    // val list = mutableListOf(3,5)        // -> []
-    // val list = mutableListOf(5,3)        // -> []
-    // val list = mutableListOf(3,4,3)        // -> [1, 0]
-    // val list = mutableListOf(3,4,4)        // -> [1, 0, 2, 0]
-    // val list = mutableListOf(3,-1,4)       // -> [2, 0]
-    // val list = mutableListOf(-4,-1,2,-3,)    // target -7 -> [3, 0]
+    // val arr = arrayOf<Int>()        // -> []
+    val arr = arrayOf(4,-3,-1,7,3,11,8)   // -> [4, 0, 6, 2]
+    // val arr = arrayOf(7)            // -> []
+    // val arr = arrayOf(3,4)        // -> [1, 0]
+    // val arr = arrayOf(4,3)        // -> [1, 0]
+    // val arr = arrayOf(3,5)        // -> []
+    // val arr = arrayOf(5,3)        // -> []
+    // val arr = arrayOf(3,4,3)        // -> [1, 0]
+    // val arr = arrayOf(3,4,4)        // -> [1, 0, 2, 0]
+    // val arr = arrayOf(3,-1,4)       // -> [2, 0]
+    // val arr = arrayOf(-4,-1,2,-3,)    // target -7 -> [3, 0]
 
     
-    for ( i in 0..list.size-1){
-        val num = list[i]
+    for ( i in 0..arr.size-1){
+        val num = arr[i]
         val searchedKey = target - num
         val index = hashmap[searchedKey]
         if (index != null){

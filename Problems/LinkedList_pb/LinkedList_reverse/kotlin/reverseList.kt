@@ -10,8 +10,9 @@ fun createLinkedListOfInt(size: Int): ListNode<Int>?{
     var counter = 1
     val start = ListNode<Int>(value = counter)
     var curr = start
-    while(counter <= 10){
-       curr.next = ListNode(value = ++counter)
+    while(counter < size){
+       counter++        
+       curr.next = ListNode(value = counter)
        curr = curr.next!!
     }
     return start

@@ -1,0 +1,42 @@
+// T : O(n)
+// S : few vars allocated: O(1)  
+
+fun isPalindrome(str: String): Boolean?{
+    if (str.length <= 0)  {println("Empty array"); return null}
+    val punctuation = ",.;:_-?!'\""
+    
+    var start = 0
+    var end = str.length - 1
+    
+        while(start < end){
+            if (str[start] in punctuation) start++
+			if (str[end]  in punctuation)  end--
+
+            when{
+                str[start] != str[end] -> {println(false); return false}
+                else -> {                                   
+                   start++
+                   end--
+                }                
+            }            
+        }		  
+    println("true")
+    return true
+}
+
+
+fun main() {
+    
+    // test case
+    // val s = ""				//	Tests an empty string.
+	// val s = "a"				//	Tests a single-character string.
+	// val s = "aa"			//	Tests a palindrome with two characters.
+	// val s = "ab"			//  Tests a non-palindrome with two characters.
+	// val s = "!, (?)"		//  Tests a string with no alphanumeric characters.
+	// val s = "12.02.2021"	//  Tests a palindrome with punctuation and numbers.
+	// val s = "21.02.2021"	//  Tests a non-palindrome with punctuation and numbers.
+	val s = "hello, world!"
+    
+    isPalindrome(s)
+       
+}

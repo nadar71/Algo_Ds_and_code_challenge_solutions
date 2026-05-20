@@ -12,8 +12,8 @@ fun main() {
     // val target = -7
     val target = 7
     val result = ArrayList<Int>()
-    
     val hashmap = hashMapOf<Int,Int>()
+    
     // val arr = arrayOf<Int>()        // -> []
     val arr = arrayOf(4,-3,-1,7,3,11,8)   // -> [4, 0, 6, 2]
     // val arr = arrayOf(7)            // -> []
@@ -28,14 +28,12 @@ fun main() {
 
     
     for ( i in 0..arr.size-1){
-        val num = arr[i]
-        val searchedKey = target - num
-        val index = hashmap[searchedKey]
-        if (index != null){
+        val searchedKey = target - arr[i]
+        if (hashmap[searchedKey] != null){
           result.add(i)
-          result.add(index)          
-        } else hashmap.put(num, i)                
+          result.add(hashmap[searchedKey]!!)          
+        } else hashmap.put(arr[i], i)                
     }  
     println(result)
            
-}
+} 

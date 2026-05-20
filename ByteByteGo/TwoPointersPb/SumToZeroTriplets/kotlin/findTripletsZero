@@ -1,0 +1,56 @@
+
+// T : O(nlogn) + O(n^2) ~ O(n^2)
+// S : O(n)  --> considereing the result array too: n pairs in worste case x n times : O(n^2)
+
+fun findTripletsZero(array: Array<Int>): ArrayList<Int>?{
+    if (array.size <= 0)  {println("Empty array"); return null}
+    array.sort()
+    println("sorted array : ${array.joinToString()}" )
+    
+    var curr = 0
+    if (array[curr] >= 0)  {println("All positive or equal 0 items array");return null}
+    var start = 1
+    var end = array.size - 1
+    val result = ArrayList<Int>()
+    
+    while(array[curr] < 0){
+        while(start < end){
+            val test = array[start] + array[end]  
+            val target = -array[curr]
+            when{
+                test < target -> start++
+                test > target -> end--
+                else -> {
+                   result.add(curr)
+                   result.add(start)
+                   result.add(end)                 
+                   start++
+                   while (array[start] == array[start-1]) start++   
+                   end--
+                }                
+            }
+            
+        }
+        curr++ 
+        while (array[curr] == array[curr-1]) curr++    
+          
+    }
+    println(result)
+    return result
+}
+
+
+fun main() {
+    
+    // test case
+    // val nums = arrayOf<Int>()
+    val nums = arrayOf(1,-2,-3,-1,4,5,2)
+    // val nums = arrayOf(0)
+    // val nums = arrayOf(1, -1)
+    // val nums = arrayOf(0, 0, 0)
+    // val nums = arrayOf(1, 0, 1)
+    // val nums = arrayOf(0, 0, 1, -1, 1, -1)
+    
+    findTripletsZero(nums)
+       
+}

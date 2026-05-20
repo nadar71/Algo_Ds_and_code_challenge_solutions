@@ -1,0 +1,1 @@
+Find number appearing the max number of times in an array

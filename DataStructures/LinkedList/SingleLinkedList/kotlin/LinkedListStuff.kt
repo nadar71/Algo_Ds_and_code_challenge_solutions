@@ -35,6 +35,29 @@ class LinkedList<T>(
         }
         else head = node
     }
+
+
+    // t: O(N) --> speed up adding a tail pointer updated in append ops
+    fun deleteTail(): Boolean{
+        if (head == null ) {println("List empty"); return false}
+        
+        var ptr = head
+        if (head?.next == null){  // head is the only list item
+            head = null           // empty list
+            return true
+        }
+        while (ptr?.next != null){          
+            val nextNode = ptr.next!!    // punto al nodo successivo
+            if (nextNode.next == null){  // check that it is the tail: next point to null, so ptr is last but one node
+                ptr.next = null          // change last but one node's next pointer 
+                return true
+            }
+            ptr = ptr.next               
+        }
+              
+        return false
+    }
+
     
     // t: O(N) worst case
     fun deleteNode(node: ListNode<T>?): Boolean{
@@ -108,15 +131,17 @@ fun main() {
     list_01.deleteNode(ListNode<Int>(12))
     printLinkedList(list_01.head)
 
-    
     println("delete list_01 item tail:")
     list_01.deleteNode(ListNode<Int>(21))
+    printLinkedList(list_01.head)
+
+    println("delete list_01 item tail with deleteTail:")
+    list_01.deleteTail()
     printLinkedList(list_01.head)
 
     println("delete list_01 item head:")
     list_01.deleteNode(ListNode<Int>(27))
     printLinkedList(list_01.head)
-    
     
     println("create new list_02:")    
     var list_02 = LinkedList(ListNode<Int>(23))
